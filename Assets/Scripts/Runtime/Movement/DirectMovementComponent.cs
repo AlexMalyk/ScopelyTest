@@ -1,0 +1,21 @@
+using UnityEngine;
+
+namespace TowerDefence.Runtime.Movement
+{
+    public class DirectMovementComponent : MovementComponent
+    {
+        protected override void CalculateNextPosition()
+        {
+            var currentPosition = _selfTransform.position;
+            var targetPos = _targetTransform.position;
+            var directionToTarget = (targetPos - currentPosition).normalized;
+            _distanceToTarget = Vector3.Distance(currentPosition, targetPos);
+            
+            var moveDistance = _moveSpeed;
+            var remainingDistance = _distanceToTarget - _stoppingDistance;
+
+            var actualMoveDistance = Mathf.Min(moveDistance, remainingDistance);
+            _nextPosition = currentPosition + directionToTarget * actualMoveDistance;
+        }
+    }
+}
