@@ -78,6 +78,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8724524134772654801}
   - component: {fileID: 8724524134772654814}
+  - component: {fileID: 5256196263357335430}
   m_Layer: 0
   m_Name: GameLifetimeScope
   m_TagString: Untagged
@@ -117,3 +118,15 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
+--- !u!114 &5256196263357335430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8724524134772654800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08ef78cef70cf43ab8f8507d16fd1b69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
