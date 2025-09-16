@@ -7,9 +7,16 @@ namespace TowerDefence.Runtime.Core.Scopes
     {
         private const string SceneToLoad = "MainMenu";
         
+        private readonly SceneLoader _sceneLoader;
+
+        public GameEntryPoint(SceneLoader sceneLoader)
+        {
+            _sceneLoader = sceneLoader;
+        }
+
         void IStartable.Start()
         {
-            SceneManager.LoadScene(SceneToLoad, LoadSceneMode.Single);
+            _sceneLoader.LoadScene(SceneToLoad, LoadSceneMode.Single);
         }
     }
 }

@@ -8,6 +8,8 @@ namespace TowerDefence.Runtime.Core.Scopes
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterEntryPoint<GameEntryPoint>();
+
+            builder.Register<SceneLoader>(Lifetime.Singleton);
         }
     }
 }
