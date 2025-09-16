@@ -1,7 +1,7 @@
 using UnityEngine.SceneManagement;
 using VContainer.Unity;
 
-namespace TowerDefence.Runtime.Core
+namespace TowerDefence.Runtime.Core.Scopes
 {
     public class GameEntryPoint : IStartable
     {

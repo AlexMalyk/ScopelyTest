@@ -1,6 +1,6 @@
 using VContainer.Unity;
 
-namespace TowerDefence.Runtime.Core
+namespace TowerDefence.Runtime.Core.Scopes
 {
     public class BattleEntryPoint : IStartable
     {

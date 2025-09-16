@@ -1,7 +1,7 @@
 using VContainer;
 using VContainer.Unity;
 
-namespace TowerDefence.Runtime.Core
+namespace TowerDefence.Runtime.Core.Scopes
 {
     public class BattleLifetimeScope : LifetimeScope
     {
