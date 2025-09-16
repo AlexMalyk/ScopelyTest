@@ -45,6 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentReference:
-    TypeName: TowerDefence.Runtime.Core.GameLifetimeScope
+    TypeName: TowerDefence.Runtime.Core.Scopes.GameLifetimeScope
   autoRun: 1
   autoInjectGameObjects: []
