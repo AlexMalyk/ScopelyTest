@@ -8,7 +8,7 @@ namespace TowerDefence.Runtime.Core.Scopes
 {
     public class BattleEntryPoint : IStartable
     {
-        [Inject] private IdentifiableConfigProvider<EnemyData>  configProvider;
+        [Inject] private IdentifiableConfigProvider<EnemyConfig>  configProvider;
         
         void IStartable.Start()
         {

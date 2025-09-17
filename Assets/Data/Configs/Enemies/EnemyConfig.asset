@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b078eaa75448422c87e6110d676fb0a, type: 3}
-  m_Name: EnemyData
+  m_Name: EnemyConfig
   m_EditorClassIdentifier: 
   _name: 
