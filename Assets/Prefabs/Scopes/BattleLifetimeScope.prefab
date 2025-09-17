@@ -48,3 +48,5 @@ MonoBehaviour:
     TypeName: TowerDefence.Runtime.Core.Scopes.GameLifetimeScope
   autoRun: 1
   autoInjectGameObjects: []
+  _enemiesDatas:
+  - {fileID: 11400000, guid: 071d831082a2d463e83610ac600d873e, type: 2}
