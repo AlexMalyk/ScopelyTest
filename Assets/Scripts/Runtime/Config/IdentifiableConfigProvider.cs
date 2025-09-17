@@ -11,7 +11,7 @@ namespace TowerDefence.Runtime.Config
             _configs = configs;
         }
 
-        public int Count => _configs?.Length ?? 0;
+        public int Count => _configs.Length;
 
         public T GetByGuid(Guid guid)
         {
@@ -20,6 +20,11 @@ namespace TowerDefence.Runtime.Config
                     return t;
 
             return null;
+        }
+
+        public T GetRandom()
+        {
+            return _configs[UnityEngine.Random.Range(0, _configs.Length)];
         }
     }
 }
