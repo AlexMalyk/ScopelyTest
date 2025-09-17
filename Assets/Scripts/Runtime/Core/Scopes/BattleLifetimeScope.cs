@@ -8,13 +8,13 @@ namespace TowerDefence.Runtime.Core.Scopes
 {
     public class BattleLifetimeScope : LifetimeScope
     {
-        [SerializeField] private EnemyConfig[] _enemiesDatas;
+        [SerializeField] private EnemyConfig[] _enemyConfigs;
         
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterEntryPoint<BattleEntryPoint>();
             
-            builder.RegisterInstance(_enemiesDatas).As<EnemyConfig[]>();
+            builder.RegisterInstance(_enemyConfigs).As<EnemyConfig[]>();
 
             builder.Register<IdentifiableConfigProvider<EnemyConfig>>(Lifetime.Scoped);
         }
