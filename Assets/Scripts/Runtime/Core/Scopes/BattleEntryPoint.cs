@@ -1,5 +1,5 @@
+using TowerDefence.Runtime.Battle.Enemy;
 using TowerDefence.Runtime.Config;
-using TowerDefence.Runtime.Enemy;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;

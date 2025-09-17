@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace TowerDefence.Runtime.Health
+namespace TowerDefence.Runtime.Battle.Health
 {
     public class HealthComponent : MonoBehaviour
     {

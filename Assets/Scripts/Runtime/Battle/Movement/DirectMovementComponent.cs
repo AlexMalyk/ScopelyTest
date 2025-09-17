@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TowerDefence.Runtime.Movement
+namespace TowerDefence.Runtime.Battle.Movement
 {
     public class DirectMovementComponent : MovementComponent
     {
