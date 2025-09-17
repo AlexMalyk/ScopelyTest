@@ -1,10 +1,10 @@
 using System;
 using UnityEngine;
 
-namespace TowerDefence.Runtime.Data
+namespace TowerDefence.Runtime.Config
 {
     [Serializable]
-    public abstract class IdentifiableScriptableObject : ScriptableObject
+    public abstract class IdentifiableConfig : ScriptableObject
     {
         [Header("Identity")] 
         [SerializeField] private string _displayName;
