@@ -10,6 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b078eaa75448422c87e6110d676fb0a, type: 3}
-  m_Name: EnemyConfig
+  m_Name: EnemyConfig_SmallCreep
   m_EditorClassIdentifier: 
-  _name: 
+  _displayName: Small Creep
+  _guidString: 3db3091f-831e-4faa-9234-5a8317a44aa3
+  _prefab: {fileID: 7860440068089580307, guid: 36690d1fac3bb4e01830d404a5098588, type: 3}
+  _reward: 5

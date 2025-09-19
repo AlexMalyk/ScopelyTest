@@ -1,8 +1,9 @@
+using TowerDefence.Runtime.Core.Entities;
 using UnityEngine;
 
 namespace TowerDefence.Runtime.Battle.Movement
 {
-    public abstract class MovementComponent : MonoBehaviour
+    public abstract class MovementComponent : EntityComponent
     {
         [SerializeField] protected float _moveSpeed = 2f;
         [SerializeField] protected float _stoppingDistance = 1f;
