@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace TowerDefence.Runtime.Battle.Turrets
 {
+    [CreateAssetMenu(fileName = "TurretConfig", menuName = "Configs/Turret")]
     public class TurretConfig : IdentifiableConfig
     {
         [Header("Turret Config")]

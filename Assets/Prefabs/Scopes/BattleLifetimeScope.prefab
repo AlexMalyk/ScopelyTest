@@ -51,4 +51,5 @@ MonoBehaviour:
   _enemyConfigs:
   - {fileID: 11400000, guid: 071d831082a2d463e83610ac600d873e, type: 2}
   - {fileID: 11400000, guid: d9adf656d27c446a1a08e6a86561d8ce, type: 2}
-  _turretConfigs: []
+  _turretConfigs:
+  - {fileID: 11400000, guid: fcbff6da503c9461fa44c606613bcef2, type: 2}

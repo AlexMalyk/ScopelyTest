@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b078eaa75448422c87e6110d676fb0a, type: 3}
-  m_Name: EnemyConfig_SmallCreep
+  m_Script: {fileID: 11500000, guid: 838d0b521d74e4f17baf6fa773bb20ca, type: 3}
+  m_Name: TurretConfig_Regular
   m_EditorClassIdentifier: 
-  _displayName: Small Creep
-  _guidString: 3db3091f-831e-4faa-9234-5a8317a44aa3
-  _prefab: {fileID: 7860440068089580307, guid: 36690d1fac3bb4e01830d404a5098588, type: 3}
-  _reward: 1
+  _displayName: Regular Turret
+  _guidString: d189f293-196c-4fa8-a766-8cf6d6a4e43b
+  _prefab: {fileID: 3831680407189153243, guid: 98f536946cef44443bb17143178fa272, type: 3}
+  _cost: 5
