@@ -24,6 +24,7 @@ namespace TowerDefence.Runtime.Core.Scopes
             builder.Register<IdentifiableConfigProvider<TurretConfig>>(Lifetime.Scoped);
             
             builder.Register<EntityFactory>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<EntityObjectPool<Entity>>(Lifetime.Scoped).AsImplementedInterfaces();
         }
     }
 }
