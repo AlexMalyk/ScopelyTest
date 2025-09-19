@@ -1,70 +1,81 @@
-using System;
+using System.Collections.Generic;
+using TowerDefence.Runtime.Core.Entities;
+using TowerDefence.Runtime.Core.Modifiers;
 using UnityEngine;
 
 namespace TowerDefence.Runtime.Battle.Health
 {
-    public class HealthComponent : MonoBehaviour
+    public class HealthComponent : EntityComponent, IEntityComponentListener, IModifierRegisterer<IHealthModifier>
     {
-        [SerializeField] protected int _maxHealth = 1;
+        [SerializeField] private float maxHealth = 100f;
+        [SerializeField] private float currentHealth;
+    
+        private List<IHealthModifier> healthModifiers = new();
 
-        protected int _currentHealth;
+        public float CurrentHealth => currentHealth;
+        public float MaxHealth => maxHealth;
 
-        public int CurrentHealth => _currentHealth;
-        public int MaxHealth => _maxHealth;
-        public bool IsAlive => _currentHealth > 0;
+        public override void Initialize(Entity entity)
+        {
+            base.Initialize(entity);
+            currentHealth = maxHealth;
+            
+            entity.OnEntityComponentAdded += OnEntityComponentAdded;
+            entity.OnEntityComponentRemoving += OnEntityComponentRemoving;
+        }
+
+        public void OnEntityComponentAdded(EntityComponent component)
+        {
+            if (component is IHealthModifier healthModifier) 
+                RegisterModifier(healthModifier);
+        }
+
+        public void OnEntityComponentRemoving(EntityComponent component)
+        {
+            if (component is IHealthModifier healthModifier) 
+                UnregisterModifier(healthModifier);
+        }
+
+        public void RegisterModifier(IHealthModifier modifier)
+        {
+            if (!healthModifiers.Contains(modifier)) 
+                healthModifiers.Add(modifier);
+        }
+
+        public void UnregisterModifier(IHealthModifier modifier)
+        {
+            healthModifiers.Remove(modifier);
+        }
+
+        public void TakeDamage(float damage)
+        {
+            float modifiedDamage = damage;
+
+            // Apply all health modifiers
+            foreach (var modifier in healthModifiers)
+            {
+                modifiedDamage = modifier.ModifyDamage(modifiedDamage);
+            }
+
+            currentHealth = Mathf.Max(0, currentHealth - modifiedDamage);
         
-        public event Action<int, int> HealthChanged; // (current, max)
-        public event Action<int, int> DamageTaken; // (damage, currentHealth)
-        public event Action Death;
-        
-        protected virtual void Awake() { }
+            Debug.Log($"Took {modifiedDamage} damage (original: {damage}). Health: {currentHealth}/{maxHealth}");
 
-        public virtual void Initialize()
-        {
-            _currentHealth = _maxHealth;
-            InitializeVisuals();
+            if (currentHealth <= 0)
+            {
+                OnDeath();
+            }
         }
 
-        protected virtual void InitializeVisuals() { }
-
-        public virtual void TakeDamage(int damage = 1)
+        public void Heal(float amount)
         {
-            if (!IsAlive) return;
-
-            var oldHealth = _currentHealth;
-            _currentHealth = Mathf.Max(0, _currentHealth - damage);
-
-            DamageTaken?.Invoke(damage, _currentHealth);
-            HealthChanged?.Invoke(_currentHealth, _maxHealth);
-
-            HandleDamage(damage, oldHealth, _currentHealth);
-
-            if (_currentHealth <= 0) 
-                Die();
-        }
-        
-        protected virtual void HandleDamage(int damage, int oldHealth, int newHealth) { }
-
-        public virtual void Heal(int amount)
-        {
-            if (!IsAlive) return;
-
-            _currentHealth = Mathf.Min(_maxHealth, _currentHealth + amount);
-            HealthChanged?.Invoke(_currentHealth, _maxHealth);
+            currentHealth = Mathf.Min(maxHealth, currentHealth + amount);
+            Debug.Log($"Healed {amount}. Health: {currentHealth}/{maxHealth}");
         }
 
-        public virtual void SetMaxHealth(int newMaxHealth)
+        private void OnDeath()
         {
-            _maxHealth = newMaxHealth;
-            _currentHealth = Mathf.Min(_currentHealth, _maxHealth);
-            HealthChanged?.Invoke(_currentHealth, _maxHealth);
+            Debug.Log("Entity died!");
         }
-
-        protected virtual void Die()
-        {
-            Death?.Invoke();
-        }
-        
-        public virtual void PlayHitEffect() { }
     }
 }
