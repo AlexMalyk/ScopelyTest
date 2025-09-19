@@ -11,7 +11,7 @@ namespace TowerDefence.Runtime.Battle.Movement
             var directionToTarget = (targetPos - currentPosition).normalized;
             _distanceToTarget = Vector3.Distance(currentPosition, targetPos);
             
-            var moveDistance = _moveSpeed;
+            var moveDistance = CurrentSpeed * Time.deltaTime;
             var remainingDistance = _distanceToTarget - _stoppingDistance;
 
             var actualMoveDistance = Mathf.Min(moveDistance, remainingDistance);
