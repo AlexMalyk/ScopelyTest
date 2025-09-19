@@ -1,6 +1,7 @@
 using TowerDefence.Runtime.Battle.Enemy;
 using TowerDefence.Runtime.Battle.Turrets;
 using TowerDefence.Runtime.Config;
+using TowerDefence.Runtime.Core.Entities;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -21,6 +22,8 @@ namespace TowerDefence.Runtime.Core.Scopes
 
             builder.Register<IdentifiableConfigProvider<EnemyConfig>>(Lifetime.Scoped);
             builder.Register<IdentifiableConfigProvider<TurretConfig>>(Lifetime.Scoped);
+            
+            builder.Register<EntityFactory>(Lifetime.Scoped).AsImplementedInterfaces();
         }
     }
 }
