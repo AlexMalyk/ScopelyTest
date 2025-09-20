@@ -12,6 +12,7 @@ namespace TowerDefence.Runtime.Core.Scopes
     {
         [SerializeField] private EnemyConfig[] _enemyConfigs;
         [SerializeField] private TurretConfig[] _turretConfigs;
+        [SerializeField] private SpawnPoint[] _spawnPoints;
         
         protected override void Configure(IContainerBuilder builder)
         {
@@ -19,9 +20,12 @@ namespace TowerDefence.Runtime.Core.Scopes
             
             builder.RegisterInstance(_enemyConfigs).As<EnemyConfig[]>();
             builder.RegisterInstance(_turretConfigs).As<TurretConfig[]>();
+            builder.RegisterInstance(_spawnPoints).As<SpawnPoint[]>();
 
             builder.Register<IdentifiableConfigProvider<EnemyConfig>>(Lifetime.Scoped);
             builder.Register<IdentifiableConfigProvider<TurretConfig>>(Lifetime.Scoped);
+            
+            builder.Register<SpawnPointsProvider>(Lifetime.Scoped);
             
             builder.Register<EntityFactory>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<EntityObjectPool<Entity>>(Lifetime.Scoped).AsImplementedInterfaces();
