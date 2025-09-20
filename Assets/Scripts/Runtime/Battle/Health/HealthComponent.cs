@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TowerDefence.Runtime.Core.Entities;
 using TowerDefence.Runtime.Core.Modifiers;
@@ -5,6 +6,7 @@ using UnityEngine;
 
 namespace TowerDefence.Runtime.Battle.Health
 {
+    [Serializable]
     public class HealthComponent : EntityComponent, IEntityComponentListener, IModifierRegisterer<IHealthModifier>
     {
         [SerializeField] private float maxHealth = 100f;

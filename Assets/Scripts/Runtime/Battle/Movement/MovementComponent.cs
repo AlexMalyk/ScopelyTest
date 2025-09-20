@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TowerDefence.Runtime.Core.Entities;
 using TowerDefence.Runtime.Core.Modifiers;
@@ -5,6 +6,7 @@ using UnityEngine;
 
 namespace TowerDefence.Runtime.Battle.Movement
 {
+    [Serializable]
     public abstract class MovementComponent : EntityComponent, IEntityComponentListener, IModifierRegisterer<IMovementModifier>
     {
         [SerializeField] protected float _baseSpeed = 2f;
@@ -12,7 +14,6 @@ namespace TowerDefence.Runtime.Battle.Movement
 
         protected bool _isReachedTarget;
         protected Transform _targetTransform;
-        protected Transform _selfTransform;
         protected Vector3 _targetPosition;
         protected Vector3 _nextPosition;
         protected float _distanceToTarget;
@@ -22,11 +23,6 @@ namespace TowerDefence.Runtime.Battle.Movement
         public bool IsReachedTarget => _isReachedTarget;
         public float BaseSpeed => _baseSpeed;
         public float CurrentSpeed => CalculateModifiedSpeed();
-        
-        protected virtual void Awake()
-        {
-            _selfTransform = transform;
-        }
 
         public override void Initialize(Entity entity)
         {
@@ -97,7 +93,7 @@ namespace TowerDefence.Runtime.Battle.Movement
 
         protected virtual void MoveToNextPosition()
         {
-            _selfTransform.position = _nextPosition;
+            _entity.transform.position = _nextPosition;
         }
 
         protected virtual void CheckTargetReached()
@@ -107,7 +103,7 @@ namespace TowerDefence.Runtime.Battle.Movement
 
         protected virtual void LookAtTarget()
         {
-            _selfTransform.LookAt(_targetPosition);
+            _entity.transform.LookAt(_targetPosition);
         }
     }
 }

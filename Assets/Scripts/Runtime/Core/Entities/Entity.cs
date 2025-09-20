@@ -8,7 +8,7 @@ namespace TowerDefence.Runtime.Core.Entities
     public class Entity : MonoBehaviour
     {
         [SerializeField] private EntityComponent[] _initialComponents;
-        
+        [SerializeReference, SubclassSelector] private List<EntityComponent> _compo = new();
         private Dictionary<Type, EntityComponent> _components = new();
         
         public event Action<EntityComponent> OnEntityComponentAdded;

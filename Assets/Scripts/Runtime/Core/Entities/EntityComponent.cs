@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 
 namespace TowerDefence.Runtime.Core.Entities
 {
-    public abstract class EntityComponent : MonoBehaviour
+    [Serializable]
+    public abstract class EntityComponent
     {
         protected Entity _entity;
 
