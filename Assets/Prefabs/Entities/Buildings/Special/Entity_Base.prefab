@@ -145,7 +145,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _initialComponents.Array.data[0]
       value: 
-      objectReference: {fileID: 4288058772259260488}
+      objectReference: {fileID: 0}
     - target: {fileID: 6717967354390465614, guid: d34816a7f57504fbaab55ea28b8500f4,
         type: 3}
       propertyPath: m_RootOrder
@@ -159,23 +159,3 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8543118125623311237}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &3203192203766039747 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6555911736941936454, guid: d34816a7f57504fbaab55ea28b8500f4,
-    type: 3}
-  m_PrefabInstance: {fileID: 8543118125623311237}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &4288058772259260488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3203192203766039747}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4a5ba91b7b264e1db38814f96bb46b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  currentHealth: 0
