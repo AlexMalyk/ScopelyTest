@@ -1,4 +1,5 @@
 using System;
+using VContainer;
 
 namespace TowerDefence.Runtime.Config
 {
@@ -6,6 +7,7 @@ namespace TowerDefence.Runtime.Config
     {
         private readonly T[] _configs;
 
+        [Inject]
         public IdentifiableConfigProvider(T[] configs)
         {
             _configs = configs;
