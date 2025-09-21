@@ -11,7 +11,6 @@ namespace TowerDefence.Runtime.Battle.Movement
     public abstract class MovementComponent : EntityComponent, IEntityComponentListener, IEffectRegisterer<IMovementEffect>
     {
         [Inject] private MovementSystem _movementSystem;
-        [Inject] private PlayerBaseProvider _playerBaseProvider;
         
         [SerializeField] protected float _baseSpeed = 2f;
         [SerializeField] protected float _stoppingDistance = 1f;
@@ -21,12 +20,15 @@ namespace TowerDefence.Runtime.Battle.Movement
         protected Vector3 _targetPosition;
         protected Vector3 _nextPosition;
         protected float _distanceToTarget;
+        protected bool _hasTarget;
         
-        private List<IMovementEffect> movementModifiers = new();
+        private List<IMovementEffect> _movementEffects = new();
 
         public bool IsReachedTarget => _isReachedTarget;
+        public bool HasTarget => _hasTarget;
         public float BaseSpeed => _baseSpeed;
         public float CurrentSpeed => CalculateModifiedSpeed();
+        public float StoppingDistance => _stoppingDistance;
 
         public override void Initialize(Entity entity)
         {
@@ -36,8 +38,6 @@ namespace TowerDefence.Runtime.Battle.Movement
             entity.OnEntityComponentRemoving += OnEntityComponentRemoving;
             
             _movementSystem.RegisterComponent(this);
-
-            InitializeMovement(_playerBaseProvider.PlayerBase.CachedTransform);
         }
 
         public override void Cleanup()
@@ -47,50 +47,88 @@ namespace TowerDefence.Runtime.Battle.Movement
             _movementSystem.UnregisterComponent(this);
         }
 
+        public override void Reset()
+        {
+            base.Reset();
+            
+            _isReachedTarget = false;
+            _hasTarget = false;
+            _targetTransform = null;
+            _targetPosition = Vector3.zero;
+            _nextPosition = Vector3.zero;
+            _distanceToTarget = 0f;
+        }
+
         public void OnEntityComponentAdded(EntityComponent component)
         {
-            if (component is IMovementEffect movementModifier) 
-                RegisterEffect(movementModifier);
+            if (component is IMovementEffect effect) 
+                RegisterEffect(effect);
         }
 
         public void OnEntityComponentRemoving(EntityComponent component)
         {
-            if (component is IMovementEffect movementModifier) 
-                UnregisterEffect(movementModifier);
+            if (component is IMovementEffect effect) 
+                UnregisterEffect(effect);
         }
 
         public void RegisterEffect(IMovementEffect effect)
         {
-            if (!movementModifiers.Contains(effect)) 
-                movementModifiers.Add(effect);
+            if (!_movementEffects.Contains(effect)) 
+                _movementEffects.Add(effect);
         }
 
         public void UnregisterEffect(IMovementEffect effect)
         {
-            movementModifiers.Remove(effect);
+            _movementEffects.Remove(effect);
         }
 
         protected float CalculateModifiedSpeed()
         {
             var modifiedSpeed = _baseSpeed;
 
-            foreach (var modifier in movementModifiers) 
-                modifiedSpeed = modifier.ModifyMovement(modifiedSpeed);
+            foreach (var effect in _movementEffects) 
+                modifiedSpeed = effect.ModifyMovement(modifiedSpeed);
 
             return modifiedSpeed;
         }
         
-        protected virtual void InitializeMovement(Transform target)
+        public virtual void SetTarget(Transform target)
         {
+            if (target == null)
+            {
+                ClearTarget();
+                return;
+            }
+            
             _isReachedTarget = false;
+            _hasTarget = true;
             _targetTransform = target;
             _targetPosition = _targetTransform.position;
             LookAtTarget();
         }
         
+        public virtual void SetTarget(Vector3 position)
+        {
+            _isReachedTarget = false;
+            _hasTarget = true;
+            _targetTransform = null;
+            _targetPosition = position;
+            LookAtTarget();
+        }
+        
+        public virtual void ClearTarget()
+        {
+            _hasTarget = false;
+            _targetTransform = null;
+            _targetPosition = Vector3.zero;
+            _isReachedTarget = false;
+        }
+        
         public void Move()
         {
-            if(_isReachedTarget) return;
+            if (!_hasTarget || _isReachedTarget) return;
+            
+            _targetPosition = _targetTransform.position;
             
             CalculateNextPosition();
             MoveToNextPosition();
@@ -112,7 +150,8 @@ namespace TowerDefence.Runtime.Battle.Movement
 
         protected virtual void LookAtTarget()
         {
-            _entity.View.LookAt(_targetPosition);
+            if (_hasTarget) 
+                _entity.View.LookAt(_targetPosition);
         }
     }
 }
