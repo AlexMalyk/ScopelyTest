@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TowerDefence.Runtime.Battle.Economy
 {
-    public class GoldSystem : MonoBehaviour
+    public class GoldSystem
     {
         private double _goldAmount = 5;
 
