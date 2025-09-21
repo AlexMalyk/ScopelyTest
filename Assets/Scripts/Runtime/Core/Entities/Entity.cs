@@ -22,6 +22,8 @@ namespace TowerDefence.Runtime.Core.Entities
     
         private void InitializeInitialComponents()
         {
+            return;
+            
             foreach (var component in _initialComponents) 
                 AddEntityComponent(component);
         }
@@ -57,12 +59,16 @@ namespace TowerDefence.Runtime.Core.Entities
         
         public void ResetEntity()
         {
+            return;
+
             foreach (var component in _initialComponents) 
                 component.Reset();
         }
         
         public void CleanupEntity()
         {
+            return;
+
             foreach (var component in _initialComponents) 
                 component.Cleanup();
         }
@@ -70,7 +76,6 @@ namespace TowerDefence.Runtime.Core.Entities
         public void OnSpawn()
         {
             gameObject.SetActive(true);
-
         }
 
         public void OnDespawn()
@@ -80,6 +85,8 @@ namespace TowerDefence.Runtime.Core.Entities
 
         private void OnDestroy()
         {
+            return;
+
             foreach (var component in _components.Values) 
                 component.OnDestroy();
             _components.Clear();

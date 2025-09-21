@@ -53,3 +53,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d9adf656d27c446a1a08e6a86561d8ce, type: 2}
   _turretConfigs:
   - {fileID: 11400000, guid: fcbff6da503c9461fa44c606613bcef2, type: 2}
+  _spawnPoints: []
+  _waveConfigs:
+  - {fileID: 11400000, guid: ca118372847624b379745745f93ed56c, type: 2}
+  - {fileID: 11400000, guid: 08aa30f6f19834ceaa714bd8b6d5a8b4, type: 2}
+  - {fileID: 11400000, guid: ee9985d00961941b9b3297b2f08516f9, type: 2}
