@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _displayName: Small Creep
   _guidString: 3db3091f-831e-4faa-9234-5a8317a44aa3
-  _prefab: {fileID: 7860440068089580307, guid: 36690d1fac3bb4e01830d404a5098588, type: 3}
+  _prefab: {fileID: 7891839435582457724, guid: 42e6e5c62b1be4c97a96e675e0ec410f, type: 3}
   _reward: 1

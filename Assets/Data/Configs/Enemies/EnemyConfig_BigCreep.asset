@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _displayName: Big Creep
   _guidString: 3e302da0-049a-4a3e-9e39-6c12baed3133
-  _prefab: {fileID: 456233608013674789, guid: 9faabad3a821b426f83eb86bccb80eb8, type: 3}
+  _prefab: {fileID: 7517070065215670682, guid: 9ae41c6f7da3f466390848a6717510ee, type: 3}
   _reward: 10
