@@ -15,7 +15,6 @@ namespace TowerDefence.Runtime.Battle.Targeting
 
         private HealthComponent _healthComponent;
 
-        public Entity Entity => _entity;
         public Transform TargetTransform => _targetTransform != null ? _targetTransform : _entity.CachedTransform;
         public bool IsValidTarget => _entity != null && _entity.gameObject.activeInHierarchy && !IsDead;
         public float TargetPriority => _targetPriority;
