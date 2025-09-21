@@ -54,7 +54,30 @@ namespace TowerDefence.Runtime.Core.Entities
                 _components.Remove(componentType);
             }
         }
-    
+        
+        public void ResetEntity()
+        {
+            foreach (var component in _initialComponents) 
+                component.Reset();
+        }
+        
+        public void CleanupEntity()
+        {
+            foreach (var component in _initialComponents) 
+                component.Cleanup();
+        }
+
+        public void OnSpawn()
+        {
+            gameObject.SetActive(true);
+
+        }
+
+        public void OnDespawn()
+        {
+            gameObject.SetActive(false);
+        }
+
         private void OnDestroy()
         {
             foreach (var component in _components.Values) 

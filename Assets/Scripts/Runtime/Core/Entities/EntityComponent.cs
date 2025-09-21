@@ -18,5 +18,8 @@ namespace TowerDefence.Runtime.Core.Entities
         {
             Debug.Log($"{GetType().Name} destroyed on {_entity?.name}");
         }
+        
+        public virtual void Reset() { }
+        public virtual void Cleanup() { }
     }
 }

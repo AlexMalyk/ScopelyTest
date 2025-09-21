@@ -2,6 +2,7 @@ using TowerDefence.Runtime.Battle.Enemy;
 using TowerDefence.Runtime.Battle.Turrets;
 using TowerDefence.Runtime.Config;
 using TowerDefence.Runtime.Core.Entities;
+using TowerDefence.Runtime.Core.Pooling;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -26,9 +27,10 @@ namespace TowerDefence.Runtime.Core.Scopes
             builder.Register<IdentifiableConfigProvider<TurretConfig>>(Lifetime.Scoped);
             
             builder.Register<SpawnPointsProvider>(Lifetime.Scoped);
-            
+
             builder.Register<EntityFactory>(Lifetime.Scoped).AsImplementedInterfaces();
-            builder.Register<EntityObjectPool<Entity>>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<EntitySpawner>(Lifetime.Scoped);
+            builder.Register<EntityPoolSystem>(Lifetime.Scoped);
         }
     }
 }

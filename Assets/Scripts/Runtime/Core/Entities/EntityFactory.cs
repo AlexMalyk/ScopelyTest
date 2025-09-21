@@ -6,24 +6,20 @@ namespace TowerDefence.Runtime.Core.Entities
 {
     public class EntityFactory : IEntityFactory
     {
-        private readonly IObjectResolver _container;
+        private readonly IObjectResolver _resolver;
 
         [Inject]
-        public EntityFactory(IObjectResolver container)
+        public EntityFactory(IObjectResolver resolver)
         {
-            _container = container;
+            _resolver = resolver;
         }
 
-        public Entity CreateEntity(Entity prefab, Vector3 position = default, Quaternion rotation = default, Transform parent = null)
+        public Entity CreateEntity(Entity prefab)
         {
-            var instance = Object.Instantiate(prefab, position, rotation, parent);
-            _container.InjectGameObject(instance.gameObject);
-            return instance;
-        }
-
-        public Entity CreateEntity(Entity prefab, Transform parent)
-        {
-            return CreateEntity(prefab, Vector3.zero, Quaternion.identity, parent);
+            var entity = GameObject.Instantiate(prefab);
+            
+            _resolver.InjectGameObject(entity.gameObject);
+            return entity;
         }
     }
 }
