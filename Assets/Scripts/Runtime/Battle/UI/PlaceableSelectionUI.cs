@@ -117,12 +117,16 @@ namespace TowerDefence.Runtime.Battle.UI
         
         private void UnsubscribeFromEvents()
         {
-            _goldSystem.OnGoldAmountChanged -= OnGoldChanged;
-            
-            _placementSystem.OnPlacementStarted -= OnPlacementStarted;
-            _placementSystem.OnPlacementCancelled -= OnPlacementCancelled;
-            _placementSystem.OnEntityPlaced -= OnEntityPlaced;
-            _placementSystem.OnPlacementFailed -= OnPlacementFailed;
+            if(_goldSystem != null)
+                _goldSystem.OnGoldAmountChanged -= OnGoldChanged;
+
+            if (_placementSystem != null)
+            {
+                _placementSystem.OnPlacementStarted -= OnPlacementStarted;
+                _placementSystem.OnPlacementCancelled -= OnPlacementCancelled;
+                _placementSystem.OnEntityPlaced -= OnEntityPlaced;
+                _placementSystem.OnPlacementFailed -= OnPlacementFailed;
+            }
 
             _cancelButton.onClick.RemoveListener(OnCancelButtonClicked);
         }
