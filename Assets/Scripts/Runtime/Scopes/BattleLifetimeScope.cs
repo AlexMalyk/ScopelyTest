@@ -1,6 +1,7 @@
 using TowerDefence.Runtime.Battle.Attack;
 using TowerDefence.Runtime.Battle.Configs;
 using TowerDefence.Runtime.Battle.Movement;
+using TowerDefence.Runtime.Battle.Placement;
 using TowerDefence.Runtime.Battle.Projectiles;
 using TowerDefence.Runtime.Battle.Waving;
 using TowerDefence.Runtime.Config;
@@ -16,7 +17,7 @@ namespace TowerDefence.Runtime.Core.Scopes
     {
         [SerializeField] private Entity _playerBaseEntity;
         [SerializeField] private EnemyConfig[] _enemyConfigs;
-        [SerializeField] private TurretConfig[] _turretConfigs;
+        [SerializeField] private PlaceableConfig[] _placeableConfigs;
         [SerializeField] private SpawnPoint[] _spawnPoints;
         [SerializeField] private WaveConfig[] _waveConfigs;
         
@@ -25,12 +26,12 @@ namespace TowerDefence.Runtime.Core.Scopes
             builder.RegisterEntryPoint<BattleEntryPoint>();
             
             builder.RegisterInstance(_enemyConfigs).As<EnemyConfig[]>();
-            builder.RegisterInstance(_turretConfigs).As<TurretConfig[]>();
+            builder.RegisterInstance(_placeableConfigs).As<PlaceableConfig[]>();
             builder.RegisterInstance(_spawnPoints).As<SpawnPoint[]>();
             builder.RegisterInstance(_waveConfigs).As<WaveConfig[]>();
 
             builder.Register<IdentifiableConfigProvider<EnemyConfig>>(Lifetime.Scoped);
-            builder.Register<IdentifiableConfigProvider<TurretConfig>>(Lifetime.Scoped);
+            builder.Register<IdentifiableConfigProvider<PlaceableConfig>>(Lifetime.Scoped);
 
             builder.Register<PlayerBaseProvider>(Lifetime.Scoped).WithParameter(_playerBaseEntity).AsSelf();
             
@@ -48,6 +49,9 @@ namespace TowerDefence.Runtime.Core.Scopes
             builder.Register<ProjectileSystem>(Lifetime.Scoped).AsImplementedInterfaces().AsSelf();
             
             builder.Register<AttackSystem>(Lifetime.Scoped).AsImplementedInterfaces().AsSelf();
+            
+            builder.Register<BasicPlacementValidator>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<PlacementSystem>(Lifetime.Scoped).AsImplementedInterfaces().AsSelf();
         }
     }
 }

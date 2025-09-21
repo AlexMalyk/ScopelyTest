@@ -1298,11 +1298,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3241532648916007050, guid: 2fd8d1fff887d47d883012807c07396a,
         type: 3}
-      propertyPath: _waveConfigs.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3241532648916007050, guid: 2fd8d1fff887d47d883012807c07396a,
-        type: 3}
       propertyPath: _spawnPoints.Array.data[0]
       value: 
       objectReference: {fileID: 1431058237}
