@@ -66,14 +66,38 @@ namespace TowerDefence.Runtime.Core.Entities
 
         public T GetCoreEntityComponent<T>() where T : EntityComponent
         {
-            return _coreComponents.TryGetValue(typeof(T), out var component) ? (T)component : null;
+            // Fast path: exact type
+            if (_coreComponents.TryGetValue(typeof(T), out var exact))
+                return (T)exact;
+
+            // Fallback: find the first component whose concrete type is assignable to T
+            var targetType = typeof(T);
+            foreach (var kvp in _coreComponents)
+            {
+                if (targetType.IsAssignableFrom(kvp.Key))
+                    return (T)kvp.Value;
+            }
+
+            return null;
         }
         
         public T[] GetEffects<T>() where T : EntityComponent
         {
-            return _effects.TryGetValue(typeof(T), out var list) 
-                ? list.Cast<T>().ToArray() 
-                : Array.Empty<T>();
+            var targetType = typeof(T);
+
+            // If we have an exact bucket, return it quickly
+            if (_effects.TryGetValue(targetType, out var exactList))
+                return exactList.Cast<T>().ToArray();
+
+            // Otherwise, collect from all buckets whose key type derives from or implements T
+            var result = new List<T>();
+            foreach (var kvp in _effects)
+            {
+                if (targetType.IsAssignableFrom(kvp.Key))
+                    result.AddRange(kvp.Value.Cast<T>());
+            }
+
+            return result.ToArray();
         }
         
         public T GetEffect<T>(Predicate<T> predicate) where T : EntityComponent
