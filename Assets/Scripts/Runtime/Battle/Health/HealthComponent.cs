@@ -9,6 +9,8 @@ namespace TowerDefence.Runtime.Battle.Health
     [Serializable]
     public class HealthComponent : EntityComponent, IEntityComponentListener, IEffectRegisterer<IHealthEffect>
     {
+        [SerializeField] private HealthBar _healthBar;
+        
         [SerializeField] private float maxHealth = 100f;
         [SerializeField] private float currentHealth;
     
@@ -20,7 +22,7 @@ namespace TowerDefence.Runtime.Battle.Health
         public override void Initialize(Entity entity)
         {
             base.Initialize(entity);
-            currentHealth = maxHealth;
+            SetHealth(maxHealth);
             
             entity.OnEntityComponentAdded += OnEntityComponentAdded;
             entity.OnEntityComponentRemoving += OnEntityComponentRemoving;
@@ -59,7 +61,7 @@ namespace TowerDefence.Runtime.Battle.Health
                 modifiedDamage = modifier.ModifyDamage(modifiedDamage);
             }
 
-            currentHealth = Mathf.Max(0, currentHealth - modifiedDamage);
+            SetHealth(Mathf.Max(0, currentHealth - modifiedDamage));
         
             Debug.Log($"Took {modifiedDamage} damage (original: {damage}). Health: {currentHealth}/{maxHealth}");
 
@@ -71,8 +73,14 @@ namespace TowerDefence.Runtime.Battle.Health
 
         public void Heal(float amount)
         {
-            currentHealth = Mathf.Min(maxHealth, currentHealth + amount);
+            SetHealth(Mathf.Min(maxHealth, currentHealth + amount));
             Debug.Log($"Healed {amount}. Health: {currentHealth}/{maxHealth}");
+        }
+
+        private void SetHealth(float health)
+        {
+            currentHealth = health;
+            _healthBar?.SetHealth(currentHealth, maxHealth);
         }
 
         private void OnDeath()
