@@ -5,14 +5,8 @@ namespace TowerDefence.Runtime.Battle.Placement
 {
     public class BasicPlacementValidator : IPlacementValidator
     {
-        private readonly LayerMask _groundLayer;
-        private readonly float _maxGroundDistance;
-        
-        public BasicPlacementValidator(LayerMask groundLayer = default, float maxGroundDistance = 100f)
-        {
-            _groundLayer = groundLayer == 0 ? 1 : groundLayer; // Default to layer 0 if not specified
-            _maxGroundDistance = maxGroundDistance;
-        }
+        private readonly LayerMask _groundLayer = 1 << 0;
+        private readonly float _maxGroundDistance = 100f;
         
         public bool IsValidPlacement(Vector3 position, PlaceableConfig config)
         {
