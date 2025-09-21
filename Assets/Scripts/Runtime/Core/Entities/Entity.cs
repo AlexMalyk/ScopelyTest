@@ -15,7 +15,7 @@ namespace TowerDefence.Runtime.Core.Entities
         [SerializeReference, SubclassSelector] private List<EntityComponent> _initialComponents = new();
         private Dictionary<Type, EntityComponent> _components = new();
 
-        public Transform CachedTransform => transform;
+        public Transform CachedTransform => _transform;
         public Transform View => _view;
         
         public event Action<EntityComponent> OnEntityComponentAdded;
