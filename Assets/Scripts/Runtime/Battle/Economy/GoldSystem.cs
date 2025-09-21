@@ -5,7 +5,7 @@ namespace TowerDefence.Runtime.Battle.Economy
 {
     public class GoldSystem : MonoBehaviour
     {
-        private double _goldAmount;
+        private double _goldAmount = 5;
 
         public double GoldAmount => _goldAmount;
 

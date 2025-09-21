@@ -4,6 +4,7 @@ using TowerDefence.Runtime.Battle.Economy;
 using TowerDefence.Runtime.Battle.Movement;
 using TowerDefence.Runtime.Battle.Placement;
 using TowerDefence.Runtime.Battle.Projectiles;
+using TowerDefence.Runtime.Battle.UI;
 using TowerDefence.Runtime.Battle.Waving;
 using TowerDefence.Runtime.Config;
 using TowerDefence.Runtime.Core.Entities;
@@ -55,6 +56,8 @@ namespace TowerDefence.Runtime.Core.Scopes
             
             builder.Register<BasicPlacementValidator>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<PlacementSystem>(Lifetime.Scoped).AsImplementedInterfaces().AsSelf();
+
+            builder.RegisterComponentInHierarchy<PlaceableSelectionUI>();
         }
     }
 }

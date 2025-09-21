@@ -50,10 +50,7 @@ namespace TowerDefence.Runtime.Battle.UI
             UpdateGoldDisplay();
             UpdateCancelButton();
             
-            if (_statusText != null)
-            {
-                _statusText.gameObject.SetActive(false);
-            }
+            _statusText.gameObject.SetActive(false);
         }
         
         private void CreateUIItems()
@@ -107,52 +104,32 @@ namespace TowerDefence.Runtime.Battle.UI
         
         private void SubscribeToEvents()
         {
-            if (_goldSystem != null)
-            {
-                _goldSystem.OnGoldAmountChanged += OnGoldChanged;
-            }
+            _goldSystem.OnGoldAmountChanged += OnGoldChanged;
             
-            if (_placementSystem != null)
-            {
-                _placementSystem.OnPlacementStarted += OnPlacementStarted;
-                _placementSystem.OnPlacementCancelled += OnPlacementCancelled;
-                _placementSystem.OnEntityPlaced += OnEntityPlaced;
-                _placementSystem.OnPlacementFailed += OnPlacementFailed;
-            }
+            _placementSystem.OnPlacementStarted += OnPlacementStarted;
+            _placementSystem.OnPlacementCancelled += OnPlacementCancelled;
+            _placementSystem.OnEntityPlaced += OnEntityPlaced;
+            _placementSystem.OnPlacementFailed += OnPlacementFailed;
             
-            if (_cancelButton != null)
-            {
-                _cancelButton.onClick.AddListener(OnCancelButtonClicked);
-            }
+            
+            _cancelButton.onClick.AddListener(OnCancelButtonClicked);
         }
         
         private void UnsubscribeFromEvents()
         {
-            if (_goldSystem != null)
-            {
-                _goldSystem.OnGoldAmountChanged -= OnGoldChanged;
-            }
+            _goldSystem.OnGoldAmountChanged -= OnGoldChanged;
             
-            if (_placementSystem != null)
-            {
-                _placementSystem.OnPlacementStarted -= OnPlacementStarted;
-                _placementSystem.OnPlacementCancelled -= OnPlacementCancelled;
-                _placementSystem.OnEntityPlaced -= OnEntityPlaced;
-                _placementSystem.OnPlacementFailed -= OnPlacementFailed;
-            }
-            
-            if (_cancelButton != null)
-            {
-                _cancelButton.onClick.RemoveListener(OnCancelButtonClicked);
-            }
+            _placementSystem.OnPlacementStarted -= OnPlacementStarted;
+            _placementSystem.OnPlacementCancelled -= OnPlacementCancelled;
+            _placementSystem.OnEntityPlaced -= OnEntityPlaced;
+            _placementSystem.OnPlacementFailed -= OnPlacementFailed;
+
+            _cancelButton.onClick.RemoveListener(OnCancelButtonClicked);
         }
         
         private void OnItemSelected(PlaceableConfig config)
         {
-            if (_placementSystem != null)
-            {
-                _placementSystem.StartPlacement(config);
-            }
+            _placementSystem.StartPlacement(config);
         }
         
         private void OnGoldChanged(double newAmount)
@@ -163,8 +140,6 @@ namespace TowerDefence.Runtime.Battle.UI
         
         private void UpdateAllItemsAffordability()
         {
-            if (_goldSystem == null) return;
-            
             foreach (var item in _uiItems)
             {
                 if (item?.Config != null)
@@ -202,10 +177,7 @@ namespace TowerDefence.Runtime.Battle.UI
         
         private void OnCancelButtonClicked()
         {
-            if (_placementSystem != null)
-            {
-                _placementSystem.CancelPlacement();
-            }
+            _placementSystem.CancelPlacement();
         }
         
         private void SetSelectedItem(PlaceableConfig config)
@@ -236,18 +208,12 @@ namespace TowerDefence.Runtime.Battle.UI
         
         private void UpdateGoldDisplay()
         {
-            if (_goldText != null && _goldSystem != null)
-            {
-                _goldText.text = $"Gold: {_goldSystem.GoldAmount:F0}";
-            }
+            _goldText.text = $"Gold: {_goldSystem.GoldAmount:F0}";
         }
         
         private void UpdateCancelButton()
         {
-            if (_cancelButton != null && _placementSystem != null)
-            {
-                _cancelButton.gameObject.SetActive(_placementSystem.IsPlacing);
-            }
+            _cancelButton.gameObject.SetActive(_placementSystem.IsPlacing);
         }
         
         private void ShowStatus(string message)
@@ -277,17 +243,6 @@ namespace TowerDefence.Runtime.Battle.UI
             }
             
             _statusCoroutine = null;
-        }
-        
-        public void RefreshUI()
-        {
-            UpdateGoldDisplay();
-            UpdateAllItemsAffordability();
-        }
-        
-        public void SetVisible(bool visible)
-        {
-            gameObject.SetActive(visible);
         }
     }
 }
