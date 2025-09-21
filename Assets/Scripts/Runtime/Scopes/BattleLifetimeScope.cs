@@ -1,5 +1,6 @@
 using TowerDefence.Runtime.Battle.Attack;
 using TowerDefence.Runtime.Battle.Configs;
+using TowerDefence.Runtime.Battle.Economy;
 using TowerDefence.Runtime.Battle.Movement;
 using TowerDefence.Runtime.Battle.Placement;
 using TowerDefence.Runtime.Battle.Projectiles;
@@ -49,6 +50,8 @@ namespace TowerDefence.Runtime.Core.Scopes
             builder.Register<ProjectileSystem>(Lifetime.Scoped).AsImplementedInterfaces().AsSelf();
             
             builder.Register<AttackSystem>(Lifetime.Scoped).AsImplementedInterfaces().AsSelf();
+
+            builder.Register<GoldSystem>(Lifetime.Scoped);
             
             builder.Register<BasicPlacementValidator>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<PlacementSystem>(Lifetime.Scoped).AsImplementedInterfaces().AsSelf();
