@@ -12,6 +12,7 @@ namespace TowerDefence.Runtime.Core.Scopes
 {
     public class BattleLifetimeScope : LifetimeScope
     {
+        [SerializeField] private Entity _playerBaseEntity;
         [SerializeField] private EnemyConfig[] _enemyConfigs;
         [SerializeField] private TurretConfig[] _turretConfigs;
         [SerializeField] private SpawnPoint[] _spawnPoints;
@@ -28,6 +29,8 @@ namespace TowerDefence.Runtime.Core.Scopes
 
             builder.Register<IdentifiableConfigProvider<EnemyConfig>>(Lifetime.Scoped);
             builder.Register<IdentifiableConfigProvider<TurretConfig>>(Lifetime.Scoped);
+
+            builder.Register<PlayerBaseProvider>(Lifetime.Scoped).WithParameter(_playerBaseEntity).AsSelf();
             
             builder.Register<SpawnPointsProvider>(Lifetime.Scoped);
 
