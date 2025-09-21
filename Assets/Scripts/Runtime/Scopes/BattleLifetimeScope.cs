@@ -1,6 +1,5 @@
-using TowerDefence.Runtime.Battle.Enemy;
+using TowerDefence.Runtime.Battle.Configs;
 using TowerDefence.Runtime.Battle.Movement;
-using TowerDefence.Runtime.Battle.Turrets;
 using TowerDefence.Runtime.Battle.Waving;
 using TowerDefence.Runtime.Config;
 using TowerDefence.Runtime.Core.Entities;
@@ -17,7 +16,7 @@ namespace TowerDefence.Runtime.Core.Scopes
         [SerializeField] private EnemyConfig[] _enemyConfigs;
         [SerializeField] private TurretConfig[] _turretConfigs;
         [SerializeField] private SpawnPoint[] _spawnPoints;
-        [SerializeField] private WaveConfig[]  _waveConfigs;
+        [SerializeField] private WaveConfig[] _waveConfigs;
         
         protected override void Configure(IContainerBuilder builder)
         {

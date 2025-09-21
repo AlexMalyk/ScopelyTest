@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using TowerDefence.Runtime.Battle.Enemy;
+using TowerDefence.Runtime.Battle.Configs;
 using TowerDefence.Runtime.Core.Entities;
 using TowerDefence.Runtime.Core.Pooling;
 using UnityEngine;

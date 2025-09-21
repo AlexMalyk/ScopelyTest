@@ -1,5 +1,5 @@
 using System;
-using TowerDefence.Runtime.Battle.Enemy;
+using TowerDefence.Runtime.Battle.Configs;
 using UnityEngine;
 
 namespace TowerDefence.Runtime.Battle.Waving

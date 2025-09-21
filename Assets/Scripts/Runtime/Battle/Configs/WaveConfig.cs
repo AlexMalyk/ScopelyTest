@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using TowerDefence.Runtime.Battle.Enemy;
+using TowerDefence.Runtime.Battle.Waving;
 using UnityEngine;
 
-namespace TowerDefence.Runtime.Battle.Waving
+namespace TowerDefence.Runtime.Battle.Configs
 {
     [CreateAssetMenu(fileName = "WaveConfig", menuName = "Configs/Wave Config")]
     public class WaveConfig : ScriptableObject
