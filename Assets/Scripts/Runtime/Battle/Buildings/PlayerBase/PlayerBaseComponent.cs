@@ -15,7 +15,7 @@ namespace TowerDefence.Runtime.Battle.Buildings
         {
             base.Initialize(entity);
             
-            _cachedTransform = _entity.transform;
+            _cachedTransform = _entity.View;
         }
     }
 }

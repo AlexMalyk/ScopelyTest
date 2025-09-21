@@ -102,7 +102,7 @@ namespace TowerDefence.Runtime.Battle.Movement
 
         protected virtual void MoveToNextPosition()
         {
-            _entity.transform.position = _nextPosition;
+            _entity.CachedTransform.position = _nextPosition;
         }
 
         protected virtual void CheckTargetReached()
@@ -112,7 +112,7 @@ namespace TowerDefence.Runtime.Battle.Movement
 
         protected virtual void LookAtTarget()
         {
-            _entity.transform.LookAt(_targetPosition);
+            _entity.View.LookAt(_targetPosition);
         }
     }
 }

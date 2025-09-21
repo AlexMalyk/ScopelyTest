@@ -8,9 +8,15 @@ namespace TowerDefence.Runtime.Core.Entities
     public class Entity : MonoBehaviour
     {
         [Inject] private IObjectResolver _objectResolver;
+
+        [SerializeField] private Transform _view;
+        [SerializeField] private Transform _transform;
         
         [SerializeReference, SubclassSelector] private List<EntityComponent> _initialComponents = new();
         private Dictionary<Type, EntityComponent> _components = new();
+
+        public Transform CachedTransform => transform;
+        public Transform View => _view;
         
         public event Action<EntityComponent> OnEntityComponentAdded;
         public event Action<EntityComponent> OnEntityComponentRemoving;

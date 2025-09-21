@@ -8,7 +8,7 @@ namespace TowerDefence.Runtime.Battle.Movement
     {
         protected override void CalculateNextPosition()
         {
-            var currentPosition = _entity.transform.position;
+            var currentPosition = _entity.CachedTransform.position;
             var targetPos = _targetTransform.position;
             var directionToTarget = (targetPos - currentPosition).normalized;
             _distanceToTarget = Vector3.Distance(currentPosition, targetPos);
