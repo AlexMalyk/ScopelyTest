@@ -7,8 +7,9 @@ namespace TowerDefence.Runtime.Core.Entities
 {
     public class Entity : MonoBehaviour
     {
-        [SerializeField] private EntityComponent[] _initialComponents;
-        [SerializeReference, SubclassSelector] private List<EntityComponent> _compo = new();
+        [Inject] private IObjectResolver _objectResolver;
+        
+        [SerializeReference, SubclassSelector] private List<EntityComponent> _initialComponents = new();
         private Dictionary<Type, EntityComponent> _components = new();
         
         public event Action<EntityComponent> OnEntityComponentAdded;
@@ -22,8 +23,6 @@ namespace TowerDefence.Runtime.Core.Entities
     
         private void InitializeInitialComponents()
         {
-            return;
-            
             foreach (var component in _initialComponents) 
                 AddEntityComponent(component);
         }
@@ -33,6 +32,7 @@ namespace TowerDefence.Runtime.Core.Entities
             var componentType = component.GetType();
             if (_components.TryAdd(componentType, component))
             {
+                _objectResolver.Inject(component);
                 component.Initialize(this);
                 
                 OnEntityComponentAdded?.Invoke(component);
@@ -52,23 +52,19 @@ namespace TowerDefence.Runtime.Core.Entities
             {
                 OnEntityComponentRemoving?.Invoke(component);
                 
-                _components[componentType].OnDestroy();
+                component.Cleanup();
                 _components.Remove(componentType);
             }
         }
         
         public void ResetEntity()
         {
-            return;
-
             foreach (var component in _initialComponents) 
                 component.Reset();
         }
         
         public void CleanupEntity()
         {
-            return;
-
             foreach (var component in _initialComponents) 
                 component.Cleanup();
         }
@@ -85,10 +81,7 @@ namespace TowerDefence.Runtime.Core.Entities
 
         private void OnDestroy()
         {
-            return;
-
-            foreach (var component in _components.Values) 
-                component.OnDestroy();
+            CleanupEntity();
             _components.Clear();
         }
     }

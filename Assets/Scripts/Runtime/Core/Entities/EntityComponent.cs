@@ -11,12 +11,7 @@ namespace TowerDefence.Runtime.Core.Entities
         public virtual void Initialize(Entity entity)
         {
             _entity = entity;
-            Debug.Log($"{GetType().Name} initialized on {entity.name}");
-        }
-
-        public virtual void OnDestroy()
-        {
-            Debug.Log($"{GetType().Name} destroyed on {_entity?.name}");
+            Debug.Log($"{GetType().Name} initialized on {entity.name}", _entity.gameObject);
         }
         
         public virtual void Reset() { }
