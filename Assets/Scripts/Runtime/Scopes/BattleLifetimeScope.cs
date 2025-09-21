@@ -1,4 +1,5 @@
 using TowerDefence.Runtime.Battle.Enemy;
+using TowerDefence.Runtime.Battle.Movement;
 using TowerDefence.Runtime.Battle.Turrets;
 using TowerDefence.Runtime.Battle.Waving;
 using TowerDefence.Runtime.Config;
@@ -38,7 +39,9 @@ namespace TowerDefence.Runtime.Core.Scopes
             builder.Register<EntitySpawner>(Lifetime.Scoped);
             builder.Register<EntityPoolSystem>(Lifetime.Scoped);
             
-            builder.Register<WaveSystem>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<WaveSystem>(Lifetime.Scoped).AsImplementedInterfaces().AsSelf();
+            
+            builder.Register<MovementSystem>(Lifetime.Scoped).AsImplementedInterfaces().AsSelf();
         }
     }
 }

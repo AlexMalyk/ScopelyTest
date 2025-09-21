@@ -1,14 +1,18 @@
 using System;
 using System.Collections.Generic;
+using TowerDefence.Runtime.Core.Efefcts;
 using TowerDefence.Runtime.Core.Entities;
-using TowerDefence.Runtime.Core.Modifiers;
 using UnityEngine;
+using VContainer;
 
 namespace TowerDefence.Runtime.Battle.Movement
 {
     [Serializable]
-    public abstract class MovementComponent : EntityComponent, IEntityComponentListener, IModifierRegisterer<IMovementModifier>
+    public abstract class MovementComponent : EntityComponent, IEntityComponentListener, IEffectRegisterer<IMovementEffect>
     {
+        [Inject] private MovementSystem _movementSystem;
+        [Inject] private PlayerBaseProvider _playerBaseProvider;
+        
         [SerializeField] protected float _baseSpeed = 2f;
         [SerializeField] protected float _stoppingDistance = 1f;
 
@@ -18,7 +22,7 @@ namespace TowerDefence.Runtime.Battle.Movement
         protected Vector3 _nextPosition;
         protected float _distanceToTarget;
         
-        private List<IMovementModifier> movementModifiers = new();
+        private List<IMovementEffect> movementModifiers = new();
 
         public bool IsReachedTarget => _isReachedTarget;
         public float BaseSpeed => _baseSpeed;
@@ -30,32 +34,43 @@ namespace TowerDefence.Runtime.Battle.Movement
             
             entity.OnEntityComponentAdded += OnEntityComponentAdded;
             entity.OnEntityComponentRemoving += OnEntityComponentRemoving;
+            
+            _movementSystem.RegisterComponent(this);
+
+            InitializeMovement(_playerBaseProvider.PlayerBase.CachedTransform);
+        }
+
+        public override void Cleanup()
+        {
+            base.Cleanup();
+            
+            _movementSystem.UnregisterComponent(this);
         }
 
         public void OnEntityComponentAdded(EntityComponent component)
         {
-            if (component is IMovementModifier movementModifier) 
-                RegisterModifier(movementModifier);
+            if (component is IMovementEffect movementModifier) 
+                RegisterEffect(movementModifier);
         }
 
         public void OnEntityComponentRemoving(EntityComponent component)
         {
-            if (component is IMovementModifier movementModifier) 
-                UnregisterModifier(movementModifier);
+            if (component is IMovementEffect movementModifier) 
+                UnregisterEffect(movementModifier);
         }
 
-        public void RegisterModifier(IMovementModifier modifier)
+        public void RegisterEffect(IMovementEffect effect)
         {
-            if (!movementModifiers.Contains(modifier)) 
-                movementModifiers.Add(modifier);
+            if (!movementModifiers.Contains(effect)) 
+                movementModifiers.Add(effect);
         }
 
-        public void UnregisterModifier(IMovementModifier modifier)
+        public void UnregisterEffect(IMovementEffect effect)
         {
-            movementModifiers.Remove(modifier);
+            movementModifiers.Remove(effect);
         }
 
-        private float CalculateModifiedSpeed()
+        protected float CalculateModifiedSpeed()
         {
             var modifiedSpeed = _baseSpeed;
 
@@ -65,28 +80,22 @@ namespace TowerDefence.Runtime.Battle.Movement
             return modifiedSpeed;
         }
         
-        public virtual void Initialize(Transform target)
+        protected virtual void InitializeMovement(Transform target)
         {
             _isReachedTarget = false;
             _targetTransform = target;
             _targetPosition = _targetTransform.position;
-            CalculateNextPosition();
             LookAtTarget();
-
-            OnInitialize();
         }
         
-        protected virtual void OnInitialize() { }
-        
-        [ContextMenu("Move")]
-        public virtual void Move()
+        public void Move()
         {
             if(_isReachedTarget) return;
             
+            CalculateNextPosition();
             MoveToNextPosition();
             CheckTargetReached();
             LookAtTarget();
-            CalculateNextPosition();
         }
         
         protected abstract void CalculateNextPosition();
