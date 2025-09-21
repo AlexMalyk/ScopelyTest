@@ -1,8 +1,8 @@
-using TowerDefence.Runtime.Core.Modifiers;
+using TowerDefence.Runtime.Core.Effects;
 
 namespace TowerDefence.Runtime.Battle.Health
 {
-    public interface IHealthModifier : IModifier
+    public interface IHealthEffect : IEffect
     {
         float ModifyDamage(float incomingDamage);
     }

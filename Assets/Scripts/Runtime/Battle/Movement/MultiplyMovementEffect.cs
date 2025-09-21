@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TowerDefence.Runtime.Battle.Movement
 {
-    public class MultiplyMovementModifier : EntityComponent, IMovementModifier
+    public class MultiplyMovementEffect : EntityComponent, IMovementEffect
     {
         [SerializeField] private float _multiplier = 0.5f;
         [SerializeField] private float _duration = 3f;
@@ -25,7 +25,7 @@ namespace TowerDefence.Runtime.Battle.Movement
             _timeRemaining -= Time.deltaTime;
             
             if (_timeRemaining <= 0) 
-                _entity.RemoveEntityComponent<MultiplyMovementModifier>();
+                _entity.RemoveEntityComponent<MultiplyMovementEffect>();
         }
     }
 }

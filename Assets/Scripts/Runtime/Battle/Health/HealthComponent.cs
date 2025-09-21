@@ -1,18 +1,18 @@
 using System;
 using System.Collections.Generic;
+using TowerDefence.Runtime.Core.Efefcts;
 using TowerDefence.Runtime.Core.Entities;
-using TowerDefence.Runtime.Core.Modifiers;
 using UnityEngine;
 
 namespace TowerDefence.Runtime.Battle.Health
 {
     [Serializable]
-    public class HealthComponent : EntityComponent, IEntityComponentListener, IModifierRegisterer<IHealthModifier>
+    public class HealthComponent : EntityComponent, IEntityComponentListener, IEffectRegisterer<IHealthEffect>
     {
         [SerializeField] private float maxHealth = 100f;
         [SerializeField] private float currentHealth;
     
-        private List<IHealthModifier> healthModifiers = new();
+        private List<IHealthEffect> healthModifiers = new();
 
         public float CurrentHealth => currentHealth;
         public float MaxHealth => maxHealth;
@@ -28,25 +28,25 @@ namespace TowerDefence.Runtime.Battle.Health
 
         public void OnEntityComponentAdded(EntityComponent component)
         {
-            if (component is IHealthModifier healthModifier) 
-                RegisterModifier(healthModifier);
+            if (component is IHealthEffect healthModifier) 
+                RegisterEffect(healthModifier);
         }
 
         public void OnEntityComponentRemoving(EntityComponent component)
         {
-            if (component is IHealthModifier healthModifier) 
-                UnregisterModifier(healthModifier);
+            if (component is IHealthEffect healthModifier) 
+                UnregisterEffect(healthModifier);
         }
 
-        public void RegisterModifier(IHealthModifier modifier)
+        public void RegisterEffect(IHealthEffect effect)
         {
-            if (!healthModifiers.Contains(modifier)) 
-                healthModifiers.Add(modifier);
+            if (!healthModifiers.Contains(effect)) 
+                healthModifiers.Add(effect);
         }
 
-        public void UnregisterModifier(IHealthModifier modifier)
+        public void UnregisterEffect(IHealthEffect effect)
         {
-            healthModifiers.Remove(modifier);
+            healthModifiers.Remove(effect);
         }
 
         public void TakeDamage(float damage)
