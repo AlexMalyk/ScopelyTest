@@ -225,7 +225,7 @@ namespace TowerDefence.Runtime.Battle.Waving
             activeEnemies++;
             OnEnemySpawned?.Invoke(enemy);
 
-            Debug.Log($"Spawned {enemyConfig.name} at {spawnPoint.name}. Active enemies: {activeEnemies}");
+            Debug.Log($"Spawned {enemy.gameObject.name} at {spawnPoint.name}. Active enemies: {activeEnemies}");
         }
 
         private void HandleEnemyDeath(Entity enemy)
