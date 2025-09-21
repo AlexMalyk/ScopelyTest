@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c3e9cce57b694a72ae548f2c1387239, type: 3}
   m_Name: WaveConfig_1
   m_EditorClassIdentifier: 
-  _waveNumber: 1
   _enemyConfigs:
   - {fileID: 11400000, guid: 071d831082a2d463e83610ac600d873e, type: 2}
   _spawnInterval: 1
@@ -21,5 +20,5 @@ MonoBehaviour:
     _enemyCount: 3
     _spawnPointIndex: 0
   - _enemyConfig: {fileID: 11400000, guid: 071d831082a2d463e83610ac600d873e, type: 2}
-    _enemyCount: 3
+    _enemyCount: 1
     _spawnPointIndex: 1
