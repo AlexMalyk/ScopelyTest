@@ -38,7 +38,7 @@ namespace TowerDefence.Runtime.Battle.Projectiles
 
             _colliders = new Collider[maxColliders];
             
-            _movementComponent = entity.GetEntityComponent<MovementComponent>();
+            _movementComponent = entity.GetCoreEntityComponent<MovementComponent>();
             if (_movementComponent == null)
             {
                 Debug.LogError($"ProjectileBehaviorComponent requires MovementComponent on {entity.name}");
@@ -160,7 +160,7 @@ namespace TowerDefence.Runtime.Battle.Projectiles
         private void OnHit(Entity hitEntity)
         {
             // Apply damage if entity has health component
-            var healthComponent = hitEntity.GetEntityComponent<HealthComponent>();
+            var healthComponent = hitEntity.GetCoreEntityComponent<HealthComponent>();
             if (healthComponent != null)
             {
                 healthComponent.TakeDamage(_damage);

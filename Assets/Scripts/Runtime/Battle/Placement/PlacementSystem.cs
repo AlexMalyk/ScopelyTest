@@ -159,14 +159,7 @@ namespace TowerDefence.Runtime.Battle.Placement
             if (placedEntity != null)
             {
                 // Ensure the placed entity has a PlaceableComponent and mark it as placed
-                var placeableComponent = placedEntity.GetEntityComponent<PlaceableComponent>();
-                if (placeableComponent == null)
-                {
-                    // Add component if not present
-                    placeableComponent = new PlaceableComponent();
-                    placeableComponent.SetConfig(_currentConfig);
-                    placedEntity.AddEntityComponent(placeableComponent);
-                }
+                var placeableComponent = placedEntity.GetCoreEntityComponent<PlaceableComponent>();
                 
                 placeableComponent.Place();
                 
@@ -191,7 +184,7 @@ namespace TowerDefence.Runtime.Battle.Placement
             if (_currentConfig == null) return;
             
             _previewEntity = _entitySpawner.Spawn(_currentConfig, Vector3.zero, Quaternion.identity);
-            _previewComponent = _previewEntity.GetEntityComponent<PlaceableComponent>();
+            _previewComponent = _previewEntity.GetCoreEntityComponent<PlaceableComponent>();
                 
             _previewComponent.SetPreview();
                 

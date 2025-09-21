@@ -12,6 +12,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: HP_Bar
       objectReference: {fileID: 0}
+    - target: {fileID: 871014896556571560, guid: af44b75e74e094724bc41042fd4832a3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 1766271699121838045, guid: af44b75e74e094724bc41042fd4832a3,
         type: 3}
       propertyPath: m_RootOrder
@@ -42,10 +47,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1992069323178737565, guid: af44b75e74e094724bc41042fd4832a3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3697710834506702828, guid: af44b75e74e094724bc41042fd4832a3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 5610706677242912311, guid: af44b75e74e094724bc41042fd4832a3,
         type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5784028708128040195, guid: af44b75e74e094724bc41042fd4832a3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 8430466412481481955, guid: af44b75e74e094724bc41042fd4832a3,
         type: 3}
@@ -138,6 +158,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Entity_CreepBig
       objectReference: {fileID: 0}
+    - target: {fileID: 6555911736941936454, guid: d34816a7f57504fbaab55ea28b8500f4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
         type: 3}
       propertyPath: _compo.Array.size
@@ -166,7 +191,7 @@ PrefabInstance:
     - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
         type: 3}
       propertyPath: _initialComponents.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
         type: 3}
@@ -180,6 +205,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
         type: 3}
+      propertyPath: _initialComponents.Array.data[2]
+      value: 4492131105645789207
+      objectReference: {fileID: 0}
+    - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
+        type: 3}
       propertyPath: managedReferences[4492131105645789204]
       value: TowerDefence.Runtime.Battle TowerDefence.Runtime.Battle.Movement.DirectMovementComponent
       objectReference: {fileID: 0}
@@ -187,6 +217,11 @@ PrefabInstance:
         type: 3}
       propertyPath: managedReferences[4492131105645789206]
       value: TowerDefence.Runtime.Battle TowerDefence.Runtime.Battle.Health.HealthComponent
+      objectReference: {fileID: 0}
+    - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
+        type: 3}
+      propertyPath: managedReferences[4492131105645789207]
+      value: TowerDefence.Runtime.Battle TowerDefence.Runtime.Battle.Movement.EnemyMovementInitializer
       objectReference: {fileID: 0}
     - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
         type: 3}
@@ -213,6 +248,16 @@ PrefabInstance:
       propertyPath: managedReferences[4492131105645789204]._stoppingDistance
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
+        type: 3}
+      propertyPath: managedReferences[4492131105645789207]._targetPlayerBaseOnSpawn
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7400897686356743059, guid: d34816a7f57504fbaab55ea28b8500f4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d34816a7f57504fbaab55ea28b8500f4, type: 3}
 --- !u!4 &7517070065215670680 stripped
@@ -234,10 +279,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8039411524965939858}
     m_Modifications:
+    - target: {fileID: 108580824454198941, guid: 9faabad3a821b426f83eb86bccb80eb8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 317424788177634536, guid: 9faabad3a821b426f83eb86bccb80eb8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 456233608013674789, guid: 9faabad3a821b426f83eb86bccb80eb8,
         type: 3}
       propertyPath: m_Name
       value: Creep_Big
+      objectReference: {fileID: 0}
+    - target: {fileID: 456233608013674789, guid: 9faabad3a821b426f83eb86bccb80eb8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 1858317155368734235, guid: 9faabad3a821b426f83eb86bccb80eb8,
         type: 3}
@@ -293,6 +353,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4069992018313285781, guid: 9faabad3a821b426f83eb86bccb80eb8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8901184656606998417, guid: 9faabad3a821b426f83eb86bccb80eb8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9faabad3a821b426f83eb86bccb80eb8, type: 3}

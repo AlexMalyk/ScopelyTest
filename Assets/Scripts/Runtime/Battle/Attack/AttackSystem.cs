@@ -22,7 +22,7 @@ namespace TowerDefence.Runtime.Battle.Attack
             _attackers.Add(attacker);
             
             // Also register its targeting component
-            var targeting = attacker.Entity.GetEntityComponent<TargetingComponent>();
+            var targeting = attacker.Entity.GetCoreEntityComponent<TargetingComponent>();
             if (targeting != null)
             {
                 _targeters.Add(targeting);
@@ -34,7 +34,7 @@ namespace TowerDefence.Runtime.Battle.Attack
             _attackers.Remove(attacker);
             
             // Also unregister its targeting component
-            var targeting = attacker.Entity.GetEntityComponent<TargetingComponent>();
+            var targeting = attacker.Entity.GetCoreEntityComponent<TargetingComponent>();
             if (targeting != null)
             {
                 _targeters.Remove(targeting);

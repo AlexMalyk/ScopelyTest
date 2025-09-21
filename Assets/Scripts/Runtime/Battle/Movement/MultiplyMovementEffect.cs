@@ -25,7 +25,7 @@ namespace TowerDefence.Runtime.Battle.Movement
             _timeRemaining -= Time.deltaTime;
             
             if (_timeRemaining <= 0) 
-                _entity.RemoveEntityComponent<MultiplyMovementEffect>();
+                _entity.RemoveEffect(this);
         }
     }
 }

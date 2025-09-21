@@ -41,7 +41,7 @@ namespace TowerDefence.Runtime.Battle.Attack
         {
             base.Initialize(entity);
             
-            _targetingComponent = entity.GetEntityComponent<TargetingComponent>();
+            _targetingComponent = entity.GetCoreEntityComponent<TargetingComponent>();
             if (_targetingComponent == null)
             {
                 Debug.LogWarning($"AttackComponent on {entity.name} requires TargetingComponent");

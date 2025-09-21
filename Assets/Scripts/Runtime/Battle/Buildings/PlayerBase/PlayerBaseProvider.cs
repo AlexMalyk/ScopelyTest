@@ -14,6 +14,6 @@ public class PlayerBaseProvider
     public PlayerBaseProvider(Entity playerBaseEntity)
     {
         _playerBaseEntity = playerBaseEntity;
-        _playerBase = _playerBaseEntity.GetEntityComponent<PlayerBaseComponent>();
+        _playerBase = _playerBaseEntity.GetCoreEntityComponent<PlayerBaseComponent>();
     }
 }

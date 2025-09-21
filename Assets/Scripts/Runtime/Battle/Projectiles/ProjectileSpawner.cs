@@ -27,7 +27,7 @@ namespace TowerDefence.Runtime.Battle.Projectiles
                 return null;
             }
             
-            var projectileBehavior = projectileEntity.GetEntityComponent<ProjectileComponent>();
+            var projectileBehavior = projectileEntity.GetCoreEntityComponent<ProjectileComponent>();
             if (projectileBehavior == null)
             {
                 Debug.LogError($"Spawned projectile entity does not have ProjectileBehaviorComponent: {config.DisplayName}");
@@ -52,7 +52,7 @@ namespace TowerDefence.Runtime.Battle.Projectiles
                 return null;
             }
             
-            var projectileBehavior = projectileEntity.GetEntityComponent<ProjectileComponent>();
+            var projectileBehavior = projectileEntity.GetCoreEntityComponent<ProjectileComponent>();
             if (projectileBehavior == null)
             {
                 Debug.LogError($"Spawned projectile entity does not have ProjectileBehaviorComponent: {config.DisplayName}");

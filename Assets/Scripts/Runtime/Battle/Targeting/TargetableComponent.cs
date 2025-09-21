@@ -27,7 +27,7 @@ namespace TowerDefence.Runtime.Battle.Targeting
         {
             base.Initialize(entity);
             
-            _healthComponent = entity.GetEntityComponent<HealthComponent>();
+            _healthComponent = entity.GetCoreEntityComponent<HealthComponent>();
             
             if (_targetTransform == null)
                 _targetTransform = entity.View != null ? entity.View : entity.CachedTransform;
@@ -37,7 +37,7 @@ namespace TowerDefence.Runtime.Battle.Targeting
         {
             base.Reset();
             
-            _healthComponent = _entity.GetEntityComponent<HealthComponent>();
+            _healthComponent = _entity.GetCoreEntityComponent<HealthComponent>();
         }
 
         public void SetTargetPriority(float priority)
