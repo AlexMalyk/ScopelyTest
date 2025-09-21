@@ -9,10 +9,12 @@ namespace TowerDefence.Runtime.Config
         [Header("Identity")] 
         [SerializeField] private string _displayName;
         [SerializeField] private string _guidString;
+        [SerializeField] private GameObject _prefab;
 
         private Guid? _cachedGuid;
 
         public string DisplayName => _displayName;
+        public GameObject Prefab => _prefab;
 
         public Guid Id
         {
@@ -39,11 +41,6 @@ namespace TowerDefence.Runtime.Config
             if (!string.IsNullOrEmpty(_guidString)) return;
             
             _guidString = Guid.NewGuid().ToString();
-        }
-
-        public bool HasId(Guid id)
-        {
-            return Id.Equals(id);
         }
     }
 }
