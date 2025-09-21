@@ -1,5 +1,7 @@
+using TowerDefence.Runtime.Battle.Attack;
 using TowerDefence.Runtime.Battle.Configs;
 using TowerDefence.Runtime.Battle.Movement;
+using TowerDefence.Runtime.Battle.Projectiles;
 using TowerDefence.Runtime.Battle.Waving;
 using TowerDefence.Runtime.Config;
 using TowerDefence.Runtime.Core.Entities;
@@ -41,6 +43,11 @@ namespace TowerDefence.Runtime.Core.Scopes
             builder.Register<WaveSystem>(Lifetime.Scoped).AsImplementedInterfaces().AsSelf();
             
             builder.Register<MovementSystem>(Lifetime.Scoped).AsImplementedInterfaces().AsSelf();
+            
+            builder.Register<ProjectileSpawner>(Lifetime.Scoped);
+            builder.Register<ProjectileSystem>(Lifetime.Scoped).AsImplementedInterfaces().AsSelf();
+            
+            builder.Register<AttackSystem>(Lifetime.Scoped).AsImplementedInterfaces().AsSelf();
         }
     }
 }
