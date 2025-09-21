@@ -67,6 +67,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Base
       objectReference: {fileID: 0}
+    - target: {fileID: 3563692720844785907, guid: 458d7fbe6b08d464f9bbc0ea868876a4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 458d7fbe6b08d464f9bbc0ea868876a4, type: 3}
 --- !u!1001 &8543118125623311237
@@ -136,6 +141,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Entity_Base
       objectReference: {fileID: 0}
+    - target: {fileID: 6555911736941936454, guid: d34816a7f57504fbaab55ea28b8500f4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
         type: 3}
       propertyPath: managedReferences[-2]
@@ -144,7 +154,7 @@ PrefabInstance:
     - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
         type: 3}
       propertyPath: _initialComponents.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
         type: 3}
@@ -153,9 +163,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
         type: 3}
+      propertyPath: _initialComponents.Array.data[1]
+      value: 4492131105645789226
+      objectReference: {fileID: 0}
+    - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
+        type: 3}
       propertyPath: managedReferences[4492131105645789203]
       value: TowerDefence.Runtime.Battle TowerDefence.Runtime.Battle.Buildings.PlayerBaseComponent
       objectReference: {fileID: 0}
+    - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
+        type: 3}
+      propertyPath: managedReferences[4492131105645789226]
+      value: TowerDefence.Runtime.Battle TowerDefence.Runtime.Battle.Placement.PlaceableComponent
+      objectReference: {fileID: 0}
+    - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
+        type: 3}
+      propertyPath: managedReferences[4492131105645789226]._config
+      value: 
+      objectReference: {fileID: 11400000, guid: bed02cce37ab442d88501a0fdc1711c1,
+        type: 2}
     - target: {fileID: 6717967354390465614, guid: d34816a7f57504fbaab55ea28b8500f4,
         type: 3}
       propertyPath: m_RootOrder
@@ -163,8 +189,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7400897686356743059, guid: d34816a7f57504fbaab55ea28b8500f4,
         type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7400897686356743059, guid: d34816a7f57504fbaab55ea28b8500f4,
+        type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d34816a7f57504fbaab55ea28b8500f4, type: 3}

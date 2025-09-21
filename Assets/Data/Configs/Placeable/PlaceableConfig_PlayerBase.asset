@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 838d0b521d74e4f17baf6fa773bb20ca, type: 3}
-  m_Name: PlaceableConfig_Turret_Regular
+  m_Name: PlaceableConfig_PlayerBase
   m_EditorClassIdentifier: 
-  _displayName: Regular Turret
-  _guidString: d189f293-196c-4fa8-a766-8cf6d6a4e43b
-  _prefab: {fileID: 3831680407189153243, guid: 98f536946cef44443bb17143178fa272, type: 3}
-  _cost: 5
+  _displayName: Player Base
+  _guidString: ae775558-cf8e-4f42-b1c4-fb44ee92bed1
+  _prefab: {fileID: 3203192203766039747, guid: 29a17040fe55d42d7bdd8273767951e7, type: 3}
+  _cost: 10000000
   _placementBoundsSize: {x: 1, y: 1, z: 1}
   _blockingLayers:
     serializedVersion: 2

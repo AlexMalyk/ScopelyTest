@@ -161,13 +161,11 @@ namespace TowerDefence.Runtime.Battle.UI
         {
             ClearSelectedItem();
             UpdateCancelButton();
-            ShowStatus("Placement cancelled");
         }
         
         private void OnEntityPlaced(Entity entity, PlaceableConfig config)
         {
             ShowStatus($"{config.DisplayName} placed! Cost: {config.Cost} gold");
-            // Keep the item selected for continued placement
         }
         
         private void OnPlacementFailed(string reason)
@@ -182,7 +180,6 @@ namespace TowerDefence.Runtime.Battle.UI
         
         private void SetSelectedItem(PlaceableConfig config)
         {
-            // Clear previous selection
             ClearSelectedItem();
             
             // Find and select the new item
