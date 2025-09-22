@@ -148,7 +148,6 @@ namespace TowerDefence.Runtime.Core.Entities
                 foreach (var effectComponent in effectsList)
                     effectComponent.Cleanup();
             }
-            
         }
 
         public void OnSpawn()
