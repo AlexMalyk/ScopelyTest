@@ -191,7 +191,7 @@ PrefabInstance:
     - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
         type: 3}
       propertyPath: _initialComponents.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
         type: 3}
@@ -210,6 +210,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
         type: 3}
+      propertyPath: _initialComponents.Array.data[3]
+      value: 4492131105645789228
+      objectReference: {fileID: 0}
+    - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
+        type: 3}
       propertyPath: managedReferences[4492131105645789204]
       value: TowerDefence.Runtime.Battle TowerDefence.Runtime.Battle.Movement.DirectMovementComponent
       objectReference: {fileID: 0}
@@ -222,6 +227,16 @@ PrefabInstance:
         type: 3}
       propertyPath: managedReferences[4492131105645789207]
       value: TowerDefence.Runtime.Battle TowerDefence.Runtime.Battle.Movement.EnemyMovementInitializer
+      objectReference: {fileID: 0}
+    - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
+        type: 3}
+      propertyPath: managedReferences[4492131105645789228]
+      value: TowerDefence.Runtime.Battle TowerDefence.Runtime.Battle.Targeting.TargetableComponent
+      objectReference: {fileID: 0}
+    - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
+        type: 3}
+      propertyPath: managedReferences[4492131105645789228]._isEnemy
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
         type: 3}
@@ -242,6 +257,16 @@ PrefabInstance:
         type: 3}
       propertyPath: managedReferences[4492131105645789206].currentHealth
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
+        type: 3}
+      propertyPath: managedReferences[4492131105645789228]._targetPriority
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
+        type: 3}
+      propertyPath: managedReferences[4492131105645789228]._targetTransform
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
         type: 3}

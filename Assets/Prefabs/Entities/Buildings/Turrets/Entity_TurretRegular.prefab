@@ -159,7 +159,7 @@ PrefabInstance:
     - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
         type: 3}
       propertyPath: _initialComponents.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
         type: 3}
@@ -168,8 +168,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
         type: 3}
+      propertyPath: _initialComponents.Array.data[1]
+      value: 4492131105645789231
+      objectReference: {fileID: 0}
+    - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
+        type: 3}
+      propertyPath: _initialComponents.Array.data[2]
+      value: 4492131105645789230
+      objectReference: {fileID: 0}
+    - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
+        type: 3}
       propertyPath: managedReferences[4492131105645789227]
       value: TowerDefence.Runtime.Battle TowerDefence.Runtime.Battle.Placement.PlaceableComponent
+      objectReference: {fileID: 0}
+    - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
+        type: 3}
+      propertyPath: managedReferences[4492131105645789230]
+      value: TowerDefence.Runtime.Battle TowerDefence.Runtime.Battle.Attack.AttackComponent
+      objectReference: {fileID: 0}
+    - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
+        type: 3}
+      propertyPath: managedReferences[4492131105645789231]
+      value: TowerDefence.Runtime.Battle TowerDefence.Runtime.Battle.Targeting.TargetingComponent
       objectReference: {fileID: 0}
     - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
         type: 3}
@@ -177,6 +197,52 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: fcbff6da503c9461fa44c606613bcef2,
         type: 2}
+    - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
+        type: 3}
+      propertyPath: managedReferences[4492131105645789230]._damage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
+        type: 3}
+      propertyPath: managedReferences[4492131105645789230]._firePoint
+      value: 
+      objectReference: {fileID: 3669475253474875091}
+    - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
+        type: 3}
+      propertyPath: managedReferences[4492131105645789230]._attackRange
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
+        type: 3}
+      propertyPath: managedReferences[4492131105645789231]._targetEnemies
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
+        type: 3}
+      propertyPath: managedReferences[4492131105645789230]._attackCooldown
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
+        type: 3}
+      propertyPath: managedReferences[4492131105645789231]._targetingRange
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
+        type: 3}
+      propertyPath: managedReferences[4492131105645789230]._projectileConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: 1ec2efebe717c45299832ced2db7ddf1,
+        type: 2}
+    - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
+        type: 3}
+      propertyPath: managedReferences[4492131105645789231]._retargetInterval
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
+        type: 3}
+      propertyPath: managedReferences[4492131105645789231]._targetLayers.m_Bits
+      value: 4096
+      objectReference: {fileID: 0}
     - target: {fileID: 7400897686356743059, guid: d34816a7f57504fbaab55ea28b8500f4,
         type: 3}
       propertyPath: m_Layer
