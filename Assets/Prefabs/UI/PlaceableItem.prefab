@@ -283,6 +283,7 @@ GameObject:
   - component: {fileID: 722945860325139148}
   - component: {fileID: 722945860325139147}
   - component: {fileID: 4042462807214799705}
+  - component: {fileID: 7415778712401813742}
   m_Layer: 5
   m_Name: PlaceableItem
   m_TagString: Untagged
@@ -409,3 +410,23 @@ MonoBehaviour:
   _button: {fileID: 722945860325139148}
   _nameText: {fileID: 722945859856717146}
   _costText: {fileID: 722945859151267337}
+--- !u!114 &7415778712401813742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722945860325139145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: 100
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
