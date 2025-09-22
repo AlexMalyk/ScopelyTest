@@ -10,9 +10,11 @@ namespace TowerDefence.Runtime.Battle.Configs
         [SerializeField] private int _cost = 5;
         [SerializeField] private Vector3 _placementBoundsSize = Vector3.one;
         [SerializeField] private LayerMask _blockingLayers = -1;
+        [SerializeField] private GameObject _previewPrefab;
         
         public int Cost => _cost;
         public Vector3 PlacementBoundsSize => _placementBoundsSize;
         public LayerMask BlockingLayers => _blockingLayers;
+        public GameObject PreviewPrefab => _previewPrefab;
     }
 }

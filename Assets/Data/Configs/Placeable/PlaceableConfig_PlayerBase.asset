@@ -20,3 +20,5 @@ MonoBehaviour:
   _blockingLayers:
     serializedVersion: 2
     m_Bits: 2048
+  _previewPrefab: {fileID: 3563692720844785907, guid: 458d7fbe6b08d464f9bbc0ea868876a4,
+    type: 3}

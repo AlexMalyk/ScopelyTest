@@ -1,11 +1,11 @@
 using System;
-using System.Collections.Generic;
 using TowerDefence.Runtime.Battle.Configs;
 using TowerDefence.Runtime.Battle.Economy;
 using TowerDefence.Runtime.Core.Entities;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
+using Object = UnityEngine.Object;
 
 namespace TowerDefence.Runtime.Battle.Placement
 {
@@ -22,22 +22,15 @@ namespace TowerDefence.Runtime.Battle.Placement
         private readonly GoldSystem _goldSystem;
         private readonly Camera _camera;
         
-        // Placement state
         private SystemPlacementState _currentState = SystemPlacementState.Idle;
         private PlaceableConfig _currentConfig;
-        private Entity _previewEntity;
-        private PlaceableComponent _previewComponent;
-        
-        // Tracking
-        private readonly Dictionary<Guid, List<Entity>> _placedEntitiesByConfig = new();
-        
-        // Events
+        private GameObject _previewGameObject;
+
         public event Action<PlaceableConfig> OnPlacementStarted;
         public event Action OnPlacementCancelled;
         public event Action<Entity, PlaceableConfig> OnEntityPlaced;
         public event Action<string> OnPlacementFailed;
         
-        // Properties
         public bool IsPlacing => _currentState == SystemPlacementState.Placing;
         
         [Inject]
@@ -72,7 +65,7 @@ namespace TowerDefence.Runtime.Battle.Placement
             _currentConfig = config;
             _currentState = SystemPlacementState.Placing;
             
-            CreatePreviewEntity();
+            CreatePreviewGameObject();
             OnPlacementStarted?.Invoke(config);
             
             Debug.Log($"Started placement of {config.DisplayName}");
@@ -108,7 +101,7 @@ namespace TowerDefence.Runtime.Battle.Placement
         
         private void UpdatePreviewPosition()
         {
-            if (_previewEntity == null || _camera == null)
+            if (_previewGameObject == null || _camera == null)
                 return;
                 
             var mousePosition = Input.mousePosition;
@@ -118,17 +111,9 @@ namespace TowerDefence.Runtime.Battle.Placement
             if (Physics.Raycast(ray, out var hit))
             {
                 var adjustedPosition = _placementValidator.GetAdjustedPosition(hit.point, _currentConfig);
-                _previewEntity.CachedTransform.position = adjustedPosition;
-                
-                UpdatePreviewVisuals();
+                _previewGameObject.transform.position = adjustedPosition;
+                _previewGameObject.gameObject.SetActive(true);
             }
-        }
-        
-        private void UpdatePreviewVisuals()
-        {
-            if (_previewComponent == null) return;
-            
-            _previewEntity.gameObject.SetActive(true);
         }
         
         private void TryPlaceAtMousePosition()
@@ -151,73 +136,42 @@ namespace TowerDefence.Runtime.Battle.Placement
         
         private void PlaceEntity(Vector3 position)
         {
-            _goldSystem.SpendGold(_currentConfig.Cost);
             
-            // Spawn the actual entity
             var placedEntity = _entitySpawner.Spawn(_currentConfig, position, Quaternion.identity);
-            
             if (placedEntity != null)
             {
-                // Ensure the placed entity has a PlaceableComponent and mark it as placed
                 var placeableComponent = placedEntity.GetCoreEntityComponent<PlaceableComponent>();
                 
                 placeableComponent.Place();
                 
-                // Track the placed entity
-                TrackPlacedEntity(placedEntity, _currentConfig);
-                
                 OnEntityPlaced?.Invoke(placedEntity, _currentConfig);
                 Debug.Log($"Placed {_currentConfig.DisplayName} at {position}");
+                _goldSystem.SpendGold(_currentConfig.Cost);
             }
             else
-            {
-                // Refund if spawn failed
-                _goldSystem.AddGold(_currentConfig.Cost);
                 OnPlacementFailed?.Invoke("Failed to spawn entity");
-            }
-            
+
             CancelPlacement();
         }
         
-        private void CreatePreviewEntity()
+        private void CreatePreviewGameObject()
         {
             if (_currentConfig == null) return;
             
-            _previewEntity = _entitySpawner.Spawn(_currentConfig, Vector3.zero, Quaternion.identity);
-            _previewComponent = _previewEntity.GetCoreEntityComponent<PlaceableComponent>();
-                
-            _previewComponent.SetPreview();
-                
-            var colliders = _previewEntity.GetComponentsInChildren<Collider>();
-            foreach (var collider in colliders) 
-                collider.enabled = false;
+            _previewGameObject = Object.Instantiate(_currentConfig.PreviewPrefab);
         }
         
         private void DestroyPreviewEntity()
         {
-            if (_previewEntity == null) return;
+            if (_previewGameObject == null) return;
             
-            _entitySpawner.Despawn(_previewEntity);
-            _previewEntity = null;
-            _previewComponent = null;
-        }
-        
-        private void TrackPlacedEntity(Entity entity, PlaceableConfig config)
-        {
-            var configId = config.Id;
-            
-            if (!_placedEntitiesByConfig.ContainsKey(configId))
-            {
-                _placedEntitiesByConfig[configId] = new List<Entity>();
-            }
-            
-            _placedEntitiesByConfig[configId].Add(entity);
+            Object.Destroy(_previewGameObject);
+            _previewGameObject = null;
         }
         
         void IDisposable.Dispose()
         {
             CancelPlacement();
-            _placedEntitiesByConfig.Clear();
         }
     }
 }
