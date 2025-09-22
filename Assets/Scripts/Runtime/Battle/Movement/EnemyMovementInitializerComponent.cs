@@ -21,7 +21,7 @@ namespace TowerDefence.Runtime.Battle.Movement
             _movementComponent = entity.GetCoreEntityComponent<MovementComponent>();
             
             if (_targetPlayerBaseOnSpawn) 
-                _movementComponent.SetTarget(_playerBaseProvider.PlayerBase.CachedTransform);
+                _movementComponent.SetTarget(_playerBaseProvider.PlayerBaseEntity.CachedTransform);
         }
         
         public override void Reset()
@@ -29,7 +29,7 @@ namespace TowerDefence.Runtime.Battle.Movement
             base.Reset();
             
             if (_targetPlayerBaseOnSpawn) 
-                _movementComponent.SetTarget(_playerBaseProvider.PlayerBase.CachedTransform);
+                _movementComponent.SetTarget(_playerBaseProvider.PlayerBaseEntity.CachedTransform);
         }
     }
 }
