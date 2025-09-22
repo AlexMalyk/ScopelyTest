@@ -1,19 +1,21 @@
-using TowerDefence.Runtime.Battle.Buildings;
 using TowerDefence.Runtime.Core.Entities;
 using VContainer;
 
-public class PlayerBaseProvider
+namespace TowerDefence.Runtime.Battle.Buildings.PlayerBase
 {
-    private readonly Entity _playerBaseEntity;
-    private readonly PlayerBaseComponent _playerBase;
-
-    public PlayerBaseComponent PlayerBase => _playerBase;
-    public Entity PlayerBaseEntity => _playerBaseEntity;
-
-    [Inject]
-    public PlayerBaseProvider(Entity playerBaseEntity)
+    public class PlayerBaseProvider
     {
-        _playerBaseEntity = playerBaseEntity;
-        _playerBase = _playerBaseEntity.GetCoreEntityComponent<PlayerBaseComponent>();
+        private readonly Entity _playerBaseEntity;
+        private readonly PlayerBaseComponent _playerBase;
+
+        public PlayerBaseComponent PlayerBase => _playerBase;
+        public Entity PlayerBaseEntity => _playerBaseEntity;
+
+        [Inject]
+        public PlayerBaseProvider(Entity playerBaseEntity)
+        {
+            _playerBaseEntity = playerBaseEntity;
+            _playerBase = _playerBaseEntity.GetCoreEntityComponent<PlayerBaseComponent>();
+        }
     }
 }

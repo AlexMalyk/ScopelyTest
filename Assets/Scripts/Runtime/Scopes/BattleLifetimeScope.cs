@@ -1,5 +1,6 @@
 using TowerDefence.Runtime.Battle;
 using TowerDefence.Runtime.Battle.Attack;
+using TowerDefence.Runtime.Battle.Buildings.PlayerBase;
 using TowerDefence.Runtime.Battle.Configs;
 using TowerDefence.Runtime.Battle.Economy;
 using TowerDefence.Runtime.Battle.Enemies;
@@ -39,6 +40,7 @@ namespace TowerDefence.Runtime.Core.Scopes
             builder.Register<IdentifiableConfigProvider<EnemyConfig>>(Lifetime.Scoped);
             builder.Register<IdentifiableConfigProvider<PlaceableConfig>>(Lifetime.Scoped);
 
+            builder.Register<PlayerBaseHealthSystem>(Lifetime.Scoped);
             builder.Register<PlayerBaseProvider>(Lifetime.Scoped).WithParameter(_playerBaseEntity).AsSelf();
             
             builder.Register<SpawnPointsProvider>(Lifetime.Scoped);
@@ -67,7 +69,8 @@ namespace TowerDefence.Runtime.Core.Scopes
             builder.Register<BattleLoopSystem>(Lifetime.Scoped)
                 .WithParameter(_winPopup)
                 .WithParameter(_losePopup)
-                .AsImplementedInterfaces();
+                .AsImplementedInterfaces()
+                .AsSelf();
         }
     }
 }
