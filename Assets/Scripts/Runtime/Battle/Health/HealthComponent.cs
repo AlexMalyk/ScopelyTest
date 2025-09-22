@@ -19,7 +19,8 @@ namespace TowerDefence.Runtime.Battle.Health
         public float CurrentHealth => currentHealth;
         public float MaxHealth => maxHealth;
         
-        public event Action<Entity> OnDeath;
+        public event Action<Entity, HealthComponent> OnDeath;
+        public event Action<Entity, HealthComponent> OnEliminated;
         
         public override void Initialize(Entity entity)
         {
@@ -65,7 +66,12 @@ namespace TowerDefence.Runtime.Battle.Health
             Debug.Log($"Took {modifiedDamage} damage (original: {damage}). Health: {currentHealth}/{maxHealth}");
 
             if (currentHealth <= 0) 
-                OnDeath?.Invoke(_entity);
+                OnDeath?.Invoke(_entity, this);
+        }
+
+        public void Eliminate()
+        {
+            OnEliminated?.Invoke(_entity, this);
         }
 
         public void Heal(float amount)

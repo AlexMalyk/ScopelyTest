@@ -344,6 +344,12 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &495579555 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8767247216979472048, guid: 00e34a4cbdf924c0d8fee7214288eaf7,
+    type: 3}
+  m_PrefabInstance: {fileID: 527195953}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &527195953
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1118,6 +1124,12 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1756804182}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2024538620 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8767247216979472048, guid: fdaa60ba925ea4ad78e77997673c4c0f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1756804182}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2664209775385113902
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1296,6 +1308,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3241532648916007050, guid: 2fd8d1fff887d47d883012807c07396a,
+        type: 3}
+      propertyPath: _winPopup
+      value: 
+      objectReference: {fileID: 2024538620}
+    - target: {fileID: 3241532648916007050, guid: 2fd8d1fff887d47d883012807c07396a,
+        type: 3}
+      propertyPath: _losePopup
+      value: 
+      objectReference: {fileID: 495579555}
     - target: {fileID: 3241532648916007050, guid: 2fd8d1fff887d47d883012807c07396a,
         type: 3}
       propertyPath: _playerBaseEntity

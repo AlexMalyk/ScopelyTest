@@ -17,8 +17,8 @@ MonoBehaviour:
   _spawnInterval: 2
   _spawnSequence:
   - _enemyConfig: {fileID: 11400000, guid: 071d831082a2d463e83610ac600d873e, type: 2}
-    _enemyCount: 3
+    _enemyCount: 5
     _spawnPointIndex: 0
   - _enemyConfig: {fileID: 11400000, guid: 071d831082a2d463e83610ac600d873e, type: 2}
-    _enemyCount: 1
+    _enemyCount: 5
     _spawnPointIndex: 1

@@ -48,6 +48,8 @@ MonoBehaviour:
     TypeName: TowerDefence.Runtime.Core.Scopes.GameLifetimeScope
   autoRun: 1
   autoInjectGameObjects: []
+  _winPopup: {fileID: 0}
+  _losePopup: {fileID: 0}
   _playerBaseEntity: {fileID: 0}
   _enemyConfigs:
   - {fileID: 11400000, guid: 071d831082a2d463e83610ac600d873e, type: 2}
@@ -57,3 +59,5 @@ MonoBehaviour:
   _spawnPoints: []
   _waveConfigs:
   - {fileID: 11400000, guid: ca118372847624b379745745f93ed56c, type: 2}
+  - {fileID: 11400000, guid: 08aa30f6f19834ceaa714bd8b6d5a8b4, type: 2}
+  - {fileID: 11400000, guid: ee9985d00961941b9b3297b2f08516f9, type: 2}

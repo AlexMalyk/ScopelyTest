@@ -1,6 +1,8 @@
+using TowerDefence.Runtime.Battle;
 using TowerDefence.Runtime.Battle.Attack;
 using TowerDefence.Runtime.Battle.Configs;
 using TowerDefence.Runtime.Battle.Economy;
+using TowerDefence.Runtime.Battle.Enemies;
 using TowerDefence.Runtime.Battle.Movement;
 using TowerDefence.Runtime.Battle.Placement;
 using TowerDefence.Runtime.Battle.Projectiles;
@@ -17,6 +19,8 @@ namespace TowerDefence.Runtime.Core.Scopes
 {
     public class BattleLifetimeScope : LifetimeScope
     {
+        [SerializeField] private GameObject _winPopup;
+        [SerializeField] private GameObject _losePopup;
         [SerializeField] private Entity _playerBaseEntity;
         [SerializeField] private EnemyConfig[] _enemyConfigs;
         [SerializeField] private PlaceableConfig[] _placeableConfigs;
@@ -44,6 +48,7 @@ namespace TowerDefence.Runtime.Core.Scopes
             builder.Register<EntityPoolSystem>(Lifetime.Scoped);
             
             builder.Register<WaveSystem>(Lifetime.Scoped).AsImplementedInterfaces().AsSelf();
+            builder.Register<EnemyTrackerSystem>(Lifetime.Scoped);
             
             builder.Register<MovementSystem>(Lifetime.Scoped).AsImplementedInterfaces().AsSelf();
             
@@ -58,6 +63,11 @@ namespace TowerDefence.Runtime.Core.Scopes
             builder.Register<PlacementSystem>(Lifetime.Scoped).AsImplementedInterfaces().AsSelf();
 
             builder.RegisterComponentInHierarchy<PlaceableSelectionUI>();
+            
+            builder.Register<BattleLoopSystem>(Lifetime.Scoped)
+                .WithParameter(_winPopup)
+                .WithParameter(_losePopup)
+                .AsImplementedInterfaces();
         }
     }
 }

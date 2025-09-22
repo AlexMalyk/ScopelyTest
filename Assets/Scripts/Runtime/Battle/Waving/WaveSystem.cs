@@ -3,66 +3,40 @@ using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using TowerDefence.Runtime.Battle.Configs;
-using TowerDefence.Runtime.Battle.Economy;
-using TowerDefence.Runtime.Battle.Health;
-using TowerDefence.Runtime.Config;
+using TowerDefence.Runtime.Battle.Enemies;
 using TowerDefence.Runtime.Core.Entities;
 using TowerDefence.Runtime.Core.Pooling;
 using UnityEngine;
 using VContainer;
-using VContainer.Unity;
 
 namespace TowerDefence.Runtime.Battle.Waving
 {
-    public class WaveSystem : IStartable, IDisposable
+    public class WaveSystem : IDisposable
     {
         private readonly WaveConfig[] _waveConfigs;
         private readonly SpawnPointsProvider _spawnPointsProvider;
         private readonly EntitySpawner _spawner;
         private readonly EntityPoolSystem _entityPoolSystem;
-        private readonly GoldSystem _goldSystem;
-        private readonly IdentifiableConfigProvider<EnemyConfig> _enemyConfigProvider;
+        private readonly EnemyTrackerSystem _enemyTrackerSystem;
 
-        // Events
-        public event Action<int> OnWaveStarted;
-        public event Action<int> OnWaveCompleted;
         public event Action OnAllWavesCompleted;
-        public event Action<Component> OnEnemySpawned;
         
-        // Private variables
-        private int currentWaveIndex = 0;
-        private bool isSpawning = false;
-        private int activeEnemies = 0;
+        private int _currentWaveIndex;
+        private bool _isSpawning;
         private CancellationTokenSource _cancellationTokenSource;
 
-        // Properties
-        public int CurrentWave => currentWaveIndex + 1;
-        public int TotalWaves => _waveConfigs.Length;
-        public bool IsWaveActive => isSpawning || activeEnemies > 0;
-        public int ActiveEnemies => activeEnemies;
+        public int CurrentWave => _currentWaveIndex + 1;
 
         [Inject]
-        public WaveSystem(EntitySpawner spawner, EntityPoolSystem entityPoolSystem, GoldSystem goldSystem, 
-            SpawnPointsProvider spawnPointsProvider, WaveConfig[] waveConfigs,
-            IdentifiableConfigProvider<EnemyConfig> enemyConfigProvider)
+        public WaveSystem(EntitySpawner spawner, EntityPoolSystem entityPoolSystem,
+            SpawnPointsProvider spawnPointsProvider, WaveConfig[] waveConfigs, EnemyTrackerSystem enemyTrackerSystem)
         {
             _spawner = spawner;
             _entityPoolSystem = entityPoolSystem;
             _spawnPointsProvider = spawnPointsProvider;
             _waveConfigs = waveConfigs;
-            _goldSystem = goldSystem;
-            _enemyConfigProvider = enemyConfigProvider;
+            _enemyTrackerSystem = enemyTrackerSystem;
             
-            Initialize();
-        }
-
-        void IStartable.Start()
-        {
-            StartWave();
-        }
-
-        private void Initialize()
-        {
             _cancellationTokenSource = new CancellationTokenSource();
             
             InitializeObjectPools();
@@ -70,8 +44,6 @@ namespace TowerDefence.Runtime.Battle.Waving
 
         private void InitializeObjectPools()
         {
-            Debug.Log("[WaveSystem] Starting pool prewarming...");
-
             var enemyConfigCounts = new Dictionary<EnemyConfig, int>();
 
             foreach (var waveConfig in _waveConfigs)
@@ -98,19 +70,17 @@ namespace TowerDefence.Runtime.Battle.Waving
 
         public void StartWave()
         {
-            if (currentWaveIndex >= _waveConfigs.Length || isSpawning)
+            if(_isSpawning)
                 return;
+
+            if (_currentWaveIndex >= _waveConfigs.Length)
+            {
+                OnAllWavesCompleted?.Invoke();
+                Debug.Log("All waves completed!");
+                return;
+            }
 
             StartWaveAsync(_cancellationTokenSource.Token).Forget();
-        }
-
-        public void StartWave(int waveIndex)
-        {
-            if (waveIndex < 0 || waveIndex >= _waveConfigs.Length || isSpawning)
-                return;
-
-            currentWaveIndex = waveIndex;
-            StartWave();
         }
 
         public void StopCurrentWave()
@@ -118,50 +88,35 @@ namespace TowerDefence.Runtime.Battle.Waving
             _cancellationTokenSource?.Cancel();
             _cancellationTokenSource?.Dispose();
             _cancellationTokenSource = new CancellationTokenSource();
-            isSpawning = false;
+            _isSpawning = false;
         }
 
         private async UniTaskVoid StartWaveAsync(CancellationToken cancellationToken)
         {
-            if (currentWaveIndex >= _waveConfigs.Length)
+            if (_currentWaveIndex >= _waveConfigs.Length)
                 return;
 
             try
             {
-                await SpawnWaveAsync(_waveConfigs[currentWaveIndex], cancellationToken);
+                await SpawnWaveAsync(_waveConfigs[_currentWaveIndex], cancellationToken);
             }
             catch (OperationCanceledException)
             {
                 Debug.Log("Wave spawning was cancelled");
             }
+            
+            _currentWaveIndex++;
         }
 
         private async UniTask SpawnWaveAsync(WaveConfig config, CancellationToken cancellationToken)
         {
-            isSpawning = true;
-            OnWaveStarted?.Invoke(CurrentWave);
+            _isSpawning = true;
 
             Debug.Log($"Starting Wave {CurrentWave}");
             
-                // Spawn from multiple points simultaneously
             await SpawnSimultaneouslyAsync(config, cancellationToken);
-
-
-            isSpawning = false;
-
-            // Wait for all enemies to be defeated
-            await UniTask.WaitUntil(() => activeEnemies <= 0, cancellationToken: cancellationToken);
-
-            OnWaveCompleted?.Invoke(CurrentWave);
-            Debug.Log($"Wave {CurrentWave} completed!");
-
-            currentWaveIndex++;
-
-            if (currentWaveIndex >= _waveConfigs.Length)
-            {
-                OnAllWavesCompleted?.Invoke();
-                Debug.Log("All waves completed!");
-            }
+            
+            _isSpawning = false;
         }
 
         private async UniTask SpawnSimultaneouslyAsync(WaveConfig config, CancellationToken cancellationToken)
@@ -169,10 +124,8 @@ namespace TowerDefence.Runtime.Battle.Waving
             // Group spawn sequences by their timing
             var spawnTasks = new List<UniTask>();
 
-            foreach (WaveSpawnSequence sequence in config.SpawnSequence)
-            {
+            foreach (var sequence in config.SpawnSequence) 
                 spawnTasks.Add(SpawnSequenceAsync(sequence, config, cancellationToken));
-            }
 
             // Wait for all spawn sequences to complete
             await UniTask.WhenAll(spawnTasks);
@@ -181,7 +134,7 @@ namespace TowerDefence.Runtime.Battle.Waving
         private async UniTask SpawnSequenceAsync(WaveSpawnSequence sequence, WaveConfig config,
             CancellationToken cancellationToken)
         {
-            for (int i = 0; i < sequence.EnemyCount; i++)
+            for (var i = 0; i < sequence.EnemyCount; i++)
             {
                 cancellationToken.ThrowIfCancellationRequested();
 
@@ -200,9 +153,7 @@ namespace TowerDefence.Runtime.Battle.Waving
         {
             // If specific spawn point is requested and valid
             if (spawnPointIndex >= 0 && spawnPointIndex < _spawnPointsProvider.Count)
-            {
                 return _spawnPointsProvider.GetSpawnPoint(spawnPointIndex);
-            }
 
             // Use random spawn point
             if (spawnPointIndex == -1)
@@ -211,39 +162,17 @@ namespace TowerDefence.Runtime.Battle.Waving
                 return _spawnPointsProvider.GetSpawnPoint(randomIndex);
             }
 
-            // Default to first spawn point
             return _spawnPointsProvider.GetSpawnPoint(0);
         }
 
         private void SpawnEnemy(EnemyConfig enemyConfig, SpawnPoint spawnPoint)
         {
-            var enemy = _spawner.Spawn(enemyConfig, spawnPoint.CachedTransform.position, spawnPoint.CachedTransform.rotation);
-            var healthComponent = enemy.GetCoreEntityComponent<HealthComponent>();
-
-            healthComponent.OnDeath += HandleEnemyDeath;
-
-            activeEnemies++;
-            OnEnemySpawned?.Invoke(enemy);
-
-            Debug.Log($"Spawned {enemy.gameObject.name} at {spawnPoint.name}. Active enemies: {activeEnemies}");
+            var enemy = _spawner.Spawn(enemyConfig, 
+                spawnPoint.CachedTransform.position, 
+                spawnPoint.CachedTransform.rotation);
+            _enemyTrackerSystem.TrackEnemy(enemy);
         }
-
-        private void HandleEnemyDeath(Entity entity)
-        {
-            activeEnemies = Mathf.Max(0, activeEnemies - 1);
-
-            var healthComponent = entity.GetCoreEntityComponent<HealthComponent>();
-            healthComponent.OnDeath -= HandleEnemyDeath;
-            
-            var configComponent = entity.GetCoreEntityComponent<ConfigComponent>();
-            var config = _enemyConfigProvider.GetByGuid(configComponent.Id);
-            _goldSystem.AddGold(config.Reward);
-
-            _spawner.Despawn(entity);
-            
-            Debug.Log($"Enemy defeated. Active enemies: {activeEnemies}");
-        }
-
+        
         void IDisposable.Dispose()
         {
             _cancellationTokenSource?.Cancel();
