@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TowerDefence.Runtime.Battle.Effects;
 using TowerDefence.Runtime.Core.Efefcts;
 using TowerDefence.Runtime.Core.Entities;
 using UnityEngine;
@@ -11,13 +12,13 @@ namespace TowerDefence.Runtime.Battle.Health
     {
         [SerializeField] private HealthBar _healthBar;
         
-        [SerializeField] private float maxHealth = 100f;
-        [SerializeField] private float currentHealth;
+        [SerializeField] private float _maxHealth = 100f;
+        [SerializeField] private float _currentHealth;
     
-        private List<IHealthEffect> healthModifiers = new();
+        private List<IHealthEffect> _healthModifiers = new();
 
-        public float CurrentHealth => currentHealth;
-        public float MaxHealth => maxHealth;
+        public float CurrentHealth => _currentHealth;
+        public float MaxHealth => _maxHealth;
         
         public event Action<Entity, HealthComponent> OnDeath;
         public event Action<Entity, HealthComponent> OnEliminated;
@@ -25,7 +26,7 @@ namespace TowerDefence.Runtime.Battle.Health
         public override void Initialize(Entity entity)
         {
             base.Initialize(entity);
-            SetHealth(maxHealth);
+            SetHealth(_maxHealth);
             
             entity.OnEntityComponentAdded += OnEntityComponentAdded;
             entity.OnEntityComponentRemoving += OnEntityComponentRemoving;
@@ -45,27 +46,27 @@ namespace TowerDefence.Runtime.Battle.Health
 
         public void RegisterEffect(IHealthEffect effect)
         {
-            if (!healthModifiers.Contains(effect)) 
-                healthModifiers.Add(effect);
+            if (!_healthModifiers.Contains(effect)) 
+                _healthModifiers.Add(effect);
         }
 
         public void UnregisterEffect(IHealthEffect effect)
         {
-            healthModifiers.Remove(effect);
+            _healthModifiers.Remove(effect);
         }
 
         public void TakeDamage(float damage)
         {
             var modifiedDamage = damage;
 
-            foreach (var modifier in healthModifiers) 
+            foreach (var modifier in _healthModifiers) 
                 modifiedDamage = modifier.ModifyDamage(modifiedDamage);
 
-            SetHealth(Mathf.Max(0, currentHealth - modifiedDamage));
+            SetHealth(Mathf.Max(0, _currentHealth - modifiedDamage));
         
-            Debug.Log($"Took {modifiedDamage} damage (original: {damage}). Health: {currentHealth}/{maxHealth}");
+            Debug.Log($"Took {modifiedDamage} damage (original: {damage}). Health: {_currentHealth}/{_maxHealth}");
 
-            if (currentHealth <= 0) 
+            if (_currentHealth <= 0) 
                 OnDeath?.Invoke(_entity, this);
         }
 
@@ -76,22 +77,22 @@ namespace TowerDefence.Runtime.Battle.Health
 
         public void Heal(float amount)
         {
-            SetHealth(Mathf.Min(maxHealth, currentHealth + amount));
-            Debug.Log($"Healed {amount}. Health: {currentHealth}/{maxHealth}");
+            SetHealth(Mathf.Min(_maxHealth, _currentHealth + amount));
+            Debug.Log($"Healed {amount}. Health: {_currentHealth}/{_maxHealth}");
         }
 
         private void SetHealth(float health)
         {
-            currentHealth = health;
-            _healthBar?.SetHealth(currentHealth, maxHealth);
+            _currentHealth = health;
+            _healthBar?.SetHealth(_currentHealth, _maxHealth);
         }
 
         public override void Reset()
         {
             base.Reset();
             
-            healthModifiers = new List<IHealthEffect>();
-            SetHealth(maxHealth);
+            _healthModifiers = new List<IHealthEffect>();
+            SetHealth(_maxHealth);
         }
     }
 }

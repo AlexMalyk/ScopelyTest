@@ -1,6 +1,6 @@
 using TowerDefence.Runtime.Core.Effects;
 
-namespace TowerDefence.Runtime.Battle.Health
+namespace TowerDefence.Runtime.Battle.Effects
 {
     public interface IHealthEffect : IEffect
     {

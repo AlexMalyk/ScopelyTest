@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using TowerDefence.Core.Effects;
 using TowerDefence.Runtime.Core.Entities;
 using TowerDefence.Runtime.Battle.Health;
 using TowerDefence.Runtime.Battle.Movement;
@@ -18,7 +20,8 @@ namespace TowerDefence.Runtime.Battle.Projectiles
         [SerializeField] private LayerMask _targetLayer;
         [SerializeField] private float _collisionRadius = 0.5f;
         [SerializeField] private bool _destroyOnReachTarget = true;
-
+        [SerializeReference, SubclassSelector] private List<IEffectDefinition> _effectsToApply = new();
+        
         private Collider[] _colliders;
         private MovementComponent _movementComponent;
         private Entity _targetEntity;
@@ -141,6 +144,9 @@ namespace TowerDefence.Runtime.Battle.Projectiles
             var healthComponent = hitEntity.GetCoreEntityComponent<HealthComponent>();
             healthComponent?.TakeDamage(_damage);
 
+            foreach(var effect in _effectsToApply) 
+                hitEntity.AddEntityComponent(effect.CreateEffect());
+            
             _onHitCallback?.Invoke(hitEntity);
             
             DestroyProjectile();

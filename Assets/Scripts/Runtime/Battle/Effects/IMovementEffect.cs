@@ -1,6 +1,6 @@
 using TowerDefence.Runtime.Core.Effects;
 
-namespace TowerDefence.Runtime.Battle.Movement
+namespace TowerDefence.Runtime.Battle.Effects
 {
     public interface IMovementEffect : IEffect
     {
