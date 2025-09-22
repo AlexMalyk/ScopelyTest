@@ -10,7 +10,7 @@ namespace TowerDefence.Runtime.Battle.Targeting
     {
         [Header("Targeting Settings")]
         [SerializeField] private float _targetingRange = 10f;
-        [SerializeField, SubclassSelector] private ITargetingStrategy _strategy;
+        [SerializeReference, SubclassSelector] private ITargetingStrategy _strategy;
         [SerializeField] private LayerMask _targetLayers = -1;
         [SerializeField] private bool _targetEnemies = true;
         [SerializeField] private float _retargetInterval = 0.1f;
@@ -55,28 +55,14 @@ namespace TowerDefence.Runtime.Battle.Targeting
 
         public void UpdateTargeting()
         {
-            // Check if current target is still valid
-            if (_currentTarget != null && !_currentTarget.IsValidTarget)
-            {
+            if (_currentTarget is { IsValidTarget: false }) 
                 ClearTarget();
-            }
 
-            // Check if we need to retarget
             if (Time.time - _lastRetargetTime >= _retargetInterval)
             {
                 FindTarget();
                 _lastRetargetTime = Time.time;
             }
-        }
-
-        public void SetTargetingRange(float range)
-        {
-            _targetingRange = range;
-        }
-
-        public void SetTargetingStrategy(ITargetingStrategy strategy)
-        {
-            _strategy = strategy;
         }
 
         public void ForceRetarget()
@@ -97,27 +83,21 @@ namespace TowerDefence.Runtime.Battle.Targeting
         {
             _potentialTargets.Clear();
             
-            // Find all potential targets in range
             var position = _entity.CachedTransform.position;
-            int targetsFound = Physics.OverlapSphereNonAlloc(position, _targetingRange, _colliderBuffer, _targetLayers);
+            var targetsFound = Physics.OverlapSphereNonAlloc(position, _targetingRange, _colliderBuffer, _targetLayers);
 
-            // Filter valid targets
             for (int i = 0; i < targetsFound; i++)
             {
-                var targetable = _colliderBuffer[i].GetComponent<ITargetable>();
-                if (IsValidTarget(targetable))
-                {
+                var entity = _colliderBuffer[i].GetComponent<Entity>();
+                var targetable = entity.GetCoreEntityComponent<TargetableComponent>();
+                if (IsValidTarget(targetable)) 
                     _potentialTargets.Add(targetable);
-                }
             }
 
-            // Select best target based on strategy
             var bestTarget = SelectBestTarget(_potentialTargets);
             
-            if (bestTarget != _currentTarget)
-            {
+            if (bestTarget != _currentTarget) 
                 SetTarget(bestTarget);
-            }
         }
 
         private bool IsValidTarget(ITargetable target)
@@ -138,16 +118,7 @@ namespace TowerDefence.Runtime.Battle.Targeting
 
         private ITargetable SelectBestTarget(List<ITargetable> targets)
         {
-            if (_strategy == null)
-                _strategy = new ClosestTargetStrategy();
-                
             return _strategy.SelectBestTarget(targets, _entity.CachedTransform.position);
-        }
-
-        private float GetTargetValue(ITargetable target, Vector3 fromPosition)
-        {
-            // This method is no longer needed as strategies handle selection logic
-            return Vector3.Distance(fromPosition, target.TargetTransform.position);
         }
 
         private void SetTarget(ITargetable target)
@@ -157,26 +128,21 @@ namespace TowerDefence.Runtime.Battle.Targeting
 
             if (previousTarget != target)
             {
-                if (previousTarget != null)
-                {
+                if (previousTarget != null) 
                     OnTargetLost?.Invoke(previousTarget);
-                }
 
-                if (_currentTarget != null)
-                {
+                if (_currentTarget != null) 
                     OnTargetAcquired?.Invoke(_currentTarget);
-                }
             }
         }
 
         private void ClearTarget()
         {
-            if (_currentTarget != null)
-            {
-                var lostTarget = _currentTarget;
-                _currentTarget = null;
-                OnTargetLost?.Invoke(lostTarget);
-            }
+            if (_currentTarget == null) return;
+            
+            var lostTarget = _currentTarget;
+            _currentTarget = null;
+            OnTargetLost?.Invoke(lostTarget);
         }
     }
 }

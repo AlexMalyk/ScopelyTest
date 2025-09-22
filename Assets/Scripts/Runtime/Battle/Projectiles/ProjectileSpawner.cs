@@ -35,7 +35,6 @@ namespace TowerDefence.Runtime.Battle.Projectiles
                 return null;
             }
             
-            // Configure and launch the projectile
             projectileBehavior.Launch(target, damage, onHitCallback, OnProjectileDestroyed);
             
             return projectileBehavior;

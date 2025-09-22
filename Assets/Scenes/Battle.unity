@@ -1252,6 +1252,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Entity_Base
       objectReference: {fileID: 0}
+    - target: {fileID: 8343212823441020590, guid: 29a17040fe55d42d7bdd8273767951e7,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8343212823441020590, guid: 29a17040fe55d42d7bdd8273767951e7,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29a17040fe55d42d7bdd8273767951e7, type: 3}
 --- !u!1001 &3241532650708410040

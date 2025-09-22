@@ -21,39 +21,27 @@ namespace TowerDefence.Runtime.Battle.Attack
         {
             _attackers.Add(attacker);
             
-            // Also register its targeting component
             var targeting = attacker.Entity.GetCoreEntityComponent<TargetingComponent>();
-            if (targeting != null)
-            {
+            if (targeting != null) 
                 _targeters.Add(targeting);
-            }
         }
 
         public void UnregisterAttacker(AttackComponent attacker)
         {
             _attackers.Remove(attacker);
             
-            // Also unregister its targeting component
             var targeting = attacker.Entity.GetCoreEntityComponent<TargetingComponent>();
-            if (targeting != null)
-            {
+            if (targeting != null) 
                 _targeters.Remove(targeting);
-            }
         }
 
         void ITickable.Tick()
         {
-            // Update targeting for all attackers
-            foreach (var targeter in _targeters)
-            {
+            foreach (var targeter in _targeters) 
                 targeter.UpdateTargeting();
-            }
 
-            // Update attacks for all attackers
-            foreach (var attacker in _attackers)
-            {
+            foreach (var attacker in _attackers) 
                 attacker.UpdateAttack();
-            }
         }
     }
 }

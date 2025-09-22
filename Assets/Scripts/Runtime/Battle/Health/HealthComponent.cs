@@ -18,6 +18,9 @@ namespace TowerDefence.Runtime.Battle.Health
 
         public float CurrentHealth => currentHealth;
         public float MaxHealth => maxHealth;
+        
+        public event Action<Entity> OnDeath;
+
 
         public override void Initialize(Entity entity)
         {
@@ -56,19 +59,15 @@ namespace TowerDefence.Runtime.Battle.Health
             float modifiedDamage = damage;
 
             // Apply all health modifiers
-            foreach (var modifier in healthModifiers)
-            {
+            foreach (var modifier in healthModifiers) 
                 modifiedDamage = modifier.ModifyDamage(modifiedDamage);
-            }
 
             SetHealth(Mathf.Max(0, currentHealth - modifiedDamage));
         
             Debug.Log($"Took {modifiedDamage} damage (original: {damage}). Health: {currentHealth}/{maxHealth}");
 
-            if (currentHealth <= 0)
-            {
-                OnDeath();
-            }
+            if (currentHealth <= 0) 
+                OnDeath?.Invoke(_entity);
         }
 
         public void Heal(float amount)
@@ -81,11 +80,6 @@ namespace TowerDefence.Runtime.Battle.Health
         {
             currentHealth = health;
             _healthBar?.SetHealth(currentHealth, maxHealth);
-        }
-
-        private void OnDeath()
-        {
-            Debug.Log("Entity died!");
         }
     }
 }

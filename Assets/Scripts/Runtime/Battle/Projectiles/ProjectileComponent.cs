@@ -73,11 +73,7 @@ namespace TowerDefence.Runtime.Battle.Projectiles
             _onHitCallback = onHitCallback;
             _onDestroyCallback = onDestroyCallback;
             
-            // Set movement target
-            if (_movementComponent != null && target != null)
-            {
-                _movementComponent.SetTarget(target.CachedTransform);
-            }
+            _movementComponent.SetTarget(target.CachedTransform);
         }
         
         public void Launch(Vector3 targetPosition, float damage, Action<Entity> onHitCallback = null, Action<Entity> onDestroyCallback = null)
@@ -89,11 +85,7 @@ namespace TowerDefence.Runtime.Battle.Projectiles
             _onHitCallback = onHitCallback;
             _onDestroyCallback = onDestroyCallback;
             
-            // Set movement target position
-            if (_movementComponent != null)
-            {
-                _movementComponent.SetTarget(targetPosition);
-            }
+            _movementComponent.SetTarget(targetPosition);
         }
         
         public void UpdateProjectile(float deltaTime)
@@ -102,37 +94,30 @@ namespace TowerDefence.Runtime.Battle.Projectiles
             
             _currentLifeTime += deltaTime;
             
-            // Check lifetime
             if (_currentLifeTime >= _lifeTime)
             {
                 DestroyProjectile();
                 return;
             }
             
-            // Check if reached target
-            if (_movementComponent != null && _movementComponent.IsReachedTarget && _destroyOnReachTarget)
+            if (_movementComponent is { IsReachedTarget: true } && _destroyOnReachTarget)
             {
                 OnTargetReached();
                 return;
             }
             
-            // Check for collision along the path
             CheckCollision();
         }
         
         private void CheckCollision()
         {
             var currentPosition = _entity.CachedTransform.position;
-            
-            // Check for overlapping colliders
             var size = Physics.OverlapSphereNonAlloc(currentPosition, _collisionRadius, _colliders, _targetLayer);
-            
-            foreach (var collider in _colliders)
+
+            for (var i = 0; i < size; i++)
             {
-                // Skip self
-                if (collider.transform == _entity.CachedTransform)
-                    continue;
-                
+                var collider = _colliders[i];
+
                 // Check if hit entity has Entity component
                 var hitEntity = collider.GetComponent<Entity>();
                 if (hitEntity != null)
@@ -145,28 +130,17 @@ namespace TowerDefence.Runtime.Battle.Projectiles
         
         private void OnTargetReached()
         {
-            // If we had a specific target entity, apply damage to it
             if (_targetEntity != null && _targetEntity.gameObject.activeInHierarchy)
-            {
                 OnHit(_targetEntity);
-            }
             else
-            {
-                // Target position reached but no entity - just destroy
                 DestroyProjectile();
-            }
         }
         
         private void OnHit(Entity hitEntity)
         {
-            // Apply damage if entity has health component
             var healthComponent = hitEntity.GetCoreEntityComponent<HealthComponent>();
-            if (healthComponent != null)
-            {
-                healthComponent.TakeDamage(_damage);
-            }
-            
-            // Invoke hit callback if provided
+            healthComponent?.TakeDamage(_damage);
+
             _onHitCallback?.Invoke(hitEntity);
             
             DestroyProjectile();
@@ -175,13 +149,9 @@ namespace TowerDefence.Runtime.Battle.Projectiles
         private void DestroyProjectile()
         {
             _isActive = false;
-            
-            // Clear movement target
-            if (_movementComponent != null)
-            {
-                _movementComponent.ClearTarget();
-            }
-            
+
+            _movementComponent?.ClearTarget();
+
             _onDestroyCallback?.Invoke(_entity);
         }
     }

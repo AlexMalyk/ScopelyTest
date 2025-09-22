@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using TowerDefence.Runtime.Battle.Configs;
+using TowerDefence.Runtime.Battle.Economy;
+using TowerDefence.Runtime.Battle.Health;
+using TowerDefence.Runtime.Config;
 using TowerDefence.Runtime.Core.Entities;
 using TowerDefence.Runtime.Core.Pooling;
 using UnityEngine;
@@ -17,6 +20,8 @@ namespace TowerDefence.Runtime.Battle.Waving
         private readonly SpawnPointsProvider _spawnPointsProvider;
         private readonly EntitySpawner _spawner;
         private readonly EntityPoolSystem _entityPoolSystem;
+        private readonly GoldSystem _goldSystem;
+        private readonly IdentifiableConfigProvider<EnemyConfig> _enemyConfigProvider;
 
         // Events
         public event Action<int> OnWaveStarted;
@@ -37,13 +42,16 @@ namespace TowerDefence.Runtime.Battle.Waving
         public int ActiveEnemies => activeEnemies;
 
         [Inject]
-        public WaveSystem(EntitySpawner spawner, EntityPoolSystem entityPoolSystem, 
-            SpawnPointsProvider spawnPointsProvider, WaveConfig[] waveConfigs)
+        public WaveSystem(EntitySpawner spawner, EntityPoolSystem entityPoolSystem, GoldSystem goldSystem, 
+            SpawnPointsProvider spawnPointsProvider, WaveConfig[] waveConfigs,
+            IdentifiableConfigProvider<EnemyConfig> enemyConfigProvider)
         {
             _spawner = spawner;
             _entityPoolSystem = entityPoolSystem;
             _spawnPointsProvider = spawnPointsProvider;
             _waveConfigs = waveConfigs;
+            _goldSystem = goldSystem;
+            _enemyConfigProvider = enemyConfigProvider;
             
             Initialize();
         }
@@ -210,17 +218,9 @@ namespace TowerDefence.Runtime.Battle.Waving
         private void SpawnEnemy(EnemyConfig enemyConfig, SpawnPoint spawnPoint)
         {
             var enemy = _spawner.Spawn(enemyConfig, spawnPoint.CachedTransform.position, spawnPoint.CachedTransform.rotation);
-            if (enemy == null)
-            {
-                Debug.LogWarning($"Failed to spawn enemy: {enemyConfig.name}");
-                return;
-            }
+            var healthComponent = enemy.GetCoreEntityComponent<HealthComponent>();
 
-            // Try to get enemy component and subscribe to death event
-            //if (enemy.TryGetComponent<IEnemy>(out IEnemy enemyInterface))
-            //{
-            //    enemyInterface.OnEnemyDeath += HandleEnemyDeath;
-            //}
+            healthComponent.OnDeath += HandleEnemyDeath;
 
             activeEnemies++;
             OnEnemySpawned?.Invoke(enemy);
@@ -228,18 +228,19 @@ namespace TowerDefence.Runtime.Battle.Waving
             Debug.Log($"Spawned {enemy.gameObject.name} at {spawnPoint.name}. Active enemies: {activeEnemies}");
         }
 
-        private void HandleEnemyDeath(Entity enemy)
+        private void HandleEnemyDeath(Entity entity)
         {
             activeEnemies = Mathf.Max(0, activeEnemies - 1);
 
-            // Try to unsubscribe from death event
-            //if (enemy.TryGetComponent<IEnemy>(out IEnemy enemyInterface))
-            //{
-            //    enemyInterface.OnEnemyDeath -= HandleEnemyDeath;
-            //}
+            var healthComponent = entity.GetCoreEntityComponent<HealthComponent>();
+            healthComponent.OnDeath -= HandleEnemyDeath;
+            
+            var configComponent = entity.GetCoreEntityComponent<ConfigComponent>();
+            var config = _enemyConfigProvider.GetByGuid(configComponent.Id);
+            _goldSystem.AddGold(config.Reward);
 
-            _spawner.Despawn(enemy);
-
+            _spawner.Despawn(entity);
+            
             Debug.Log($"Enemy defeated. Active enemies: {activeEnemies}");
         }
 
