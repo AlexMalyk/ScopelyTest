@@ -56,6 +56,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d9adf656d27c446a1a08e6a86561d8ce, type: 2}
   _placeableConfigs:
   - {fileID: 11400000, guid: fcbff6da503c9461fa44c606613bcef2, type: 2}
+  - {fileID: 11400000, guid: 34d23822a10d1493e9e3c67af25ea275, type: 2}
   _spawnPoints: []
   _waveConfigs:
   - {fileID: 11400000, guid: ca118372847624b379745745f93ed56c, type: 2}

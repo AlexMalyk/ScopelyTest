@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bafa61c8200524f0ba56e118b8e6a433, type: 3}
+  m_Name: ProjectileConfig_Slowing
+  m_EditorClassIdentifier: 
+  _displayName: Slowing Projectile
+  _guidString: c028f65a-f172-4cf5-b736-6bc85b8fb530
+  _prefab: {fileID: 4852595282415762107, guid: a83f7afb9b72d46d9b55134889f34a7b, type: 3}

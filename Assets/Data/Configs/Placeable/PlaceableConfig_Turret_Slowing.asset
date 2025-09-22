@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 838d0b521d74e4f17baf6fa773bb20ca, type: 3}
+  m_Name: PlaceableConfig_Turret_Slowing
+  m_EditorClassIdentifier: 
+  _displayName: Slowing Turret
+  _guidString: 3524df73-0435-4595-9014-382d01487bc2
+  _prefab: {fileID: 3831680407189153243, guid: 5cf47fe25dc7549f095d66142a0ea185, type: 3}
+  _cost: 10
+  _placementBoundsSize: {x: 1, y: 1, z: 1}
+  _blockingLayers:
+    serializedVersion: 2
+    m_Bits: 2048
+  _previewPrefab: {fileID: 137698683031451501, guid: feecb663f23754f8ba19b933abd9ac1e,
+    type: 3}
