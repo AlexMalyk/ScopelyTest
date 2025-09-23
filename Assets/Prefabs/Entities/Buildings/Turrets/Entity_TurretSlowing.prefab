@@ -118,6 +118,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
         type: 3}
+      propertyPath: managedReferences[4492131105645789323]
+      value: TowerDefence.Runtime.Battle TowerDefence.Runtime.Battle.Targeting.HighestPriorityTargetStrategy
+      objectReference: {fileID: 0}
+    - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
+        type: 3}
       propertyPath: managedReferences[4492131105645789227]._config
       value: 
       objectReference: {fileID: 11400000, guid: fcbff6da503c9461fa44c606613bcef2,
@@ -130,7 +135,7 @@ PrefabInstance:
     - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
         type: 3}
       propertyPath: managedReferences[4492131105645789231]._strategy
-      value: 4492131105645789234
+      value: 4492131105645789323
       objectReference: {fileID: 0}
     - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
         type: 3}
