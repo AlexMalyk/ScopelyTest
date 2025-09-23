@@ -136,7 +136,6 @@ namespace TowerDefence.Runtime.Battle.Placement
         
         private void PlaceEntity(Vector3 position)
         {
-            
             var placedEntity = _entitySpawner.Spawn(_currentConfig, position, Quaternion.identity);
             if (placedEntity != null)
             {
@@ -165,7 +164,8 @@ namespace TowerDefence.Runtime.Battle.Placement
         {
             if (_previewGameObject == null) return;
             
-            Object.Destroy(_previewGameObject);
+            Debug.Log($"Destroying preview entity {_previewGameObject.name}");
+            GameObject.Destroy(_previewGameObject);
             _previewGameObject = null;
         }
         

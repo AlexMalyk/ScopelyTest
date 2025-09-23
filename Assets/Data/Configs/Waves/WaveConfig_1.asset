@@ -19,6 +19,6 @@ MonoBehaviour:
   - _enemyConfig: {fileID: 11400000, guid: 071d831082a2d463e83610ac600d873e, type: 2}
     _enemyCount: 5
     _spawnPointIndex: 0
-  - _enemyConfig: {fileID: 11400000, guid: 071d831082a2d463e83610ac600d873e, type: 2}
-    _enemyCount: 5
+  - _enemyConfig: {fileID: 11400000, guid: d9adf656d27c446a1a08e6a86561d8ce, type: 2}
+    _enemyCount: 1
     _spawnPointIndex: 1

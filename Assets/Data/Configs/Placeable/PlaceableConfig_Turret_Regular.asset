@@ -15,7 +15,7 @@ MonoBehaviour:
   _displayName: Regular Turret
   _guidString: d189f293-196c-4fa8-a766-8cf6d6a4e43b
   _prefab: {fileID: 3831680407189153243, guid: 98f536946cef44443bb17143178fa272, type: 3}
-  _cost: 5
+  _cost: 1
   _placementBoundsSize: {x: 1, y: 1, z: 1}
   _blockingLayers:
     serializedVersion: 2

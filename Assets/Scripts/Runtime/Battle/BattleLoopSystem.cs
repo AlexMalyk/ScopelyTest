@@ -62,7 +62,7 @@ namespace TowerDefence.Runtime.Battle
 
         private async UniTaskVoid LoadMainMenu()
         {
-            await UniTask.Delay(100);
+            await UniTask.Delay(TimeSpan.FromSeconds(5));
             
             _sceneLoader.LoadScene("MainMenu", LoadSceneMode.Single);
         }

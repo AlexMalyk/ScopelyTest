@@ -37,8 +37,6 @@ namespace TowerDefence.Runtime.Battle.Movement
             
             entity.OnEntityComponentAdded += OnEntityComponentAdded;
             entity.OnEntityComponentRemoving += OnEntityComponentRemoving;
-            
-            _movementSystem.RegisterComponent(this);
         }
 
         public override void Cleanup()
@@ -51,6 +49,8 @@ namespace TowerDefence.Runtime.Battle.Movement
         public override void Reset()
         {
             base.Reset();
+            
+            _movementSystem.RegisterComponent(this);
             
             _isReachedTarget = false;
             _hasTarget = false;

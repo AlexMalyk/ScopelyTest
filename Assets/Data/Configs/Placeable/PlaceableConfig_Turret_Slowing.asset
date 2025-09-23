@@ -15,7 +15,7 @@ MonoBehaviour:
   _displayName: Slowing Turret
   _guidString: 3524df73-0435-4595-9014-382d01487bc2
   _prefab: {fileID: 3831680407189153243, guid: 5cf47fe25dc7549f095d66142a0ea185, type: 3}
-  _cost: 10
+  _cost: 2
   _placementBoundsSize: {x: 1, y: 1, z: 1}
   _blockingLayers:
     serializedVersion: 2
