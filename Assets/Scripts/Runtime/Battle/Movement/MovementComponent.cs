@@ -43,6 +43,7 @@ namespace TowerDefence.Runtime.Battle.Movement
         {
             base.Cleanup();
             
+            _movementEffects.Clear();
             _movementSystem.UnregisterComponent(this);
         }
 
@@ -50,6 +51,7 @@ namespace TowerDefence.Runtime.Battle.Movement
         {
             base.Reset();
             
+            _movementEffects.Clear();
             _movementSystem.RegisterComponent(this);
             
             _isReachedTarget = false;

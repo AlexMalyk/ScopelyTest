@@ -3,6 +3,7 @@ using TowerDefence.Runtime.Battle.Attack;
 using TowerDefence.Runtime.Battle.Buildings.PlayerBase;
 using TowerDefence.Runtime.Battle.Configs;
 using TowerDefence.Runtime.Battle.Economy;
+using TowerDefence.Runtime.Battle.Effects;
 using TowerDefence.Runtime.Battle.Enemies;
 using TowerDefence.Runtime.Battle.Movement;
 using TowerDefence.Runtime.Battle.Placement;
@@ -70,6 +71,8 @@ namespace TowerDefence.Runtime.Core.Scopes
             builder.RegisterComponentInHierarchy<PlaceableSelectionUI>();
             
             builder.Register<BattleLoopSystem>(Lifetime.Scoped).AsImplementedInterfaces().AsSelf();
+
+            builder.Register<EffectsSystem>(Lifetime.Scoped).AsImplementedInterfaces().AsSelf();
         }
     }
 }

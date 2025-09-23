@@ -1,5 +1,6 @@
 using System;
 using TowerDefence.Core.Effects;
+using TowerDefence.Runtime.Core.Effects;
 using TowerDefence.Runtime.Core.Entities;
 using UnityEngine;
 
@@ -29,6 +30,12 @@ namespace TowerDefence.Runtime.Battle.Effects
         public float ModifyDamage(float incomingDamage)
         {
             return Mathf.Max(0f, incomingDamage - _decreaseAmount);
+        }
+
+        void IEffect.UpdateEffect(float deltaTime) { }
+        public bool IsExpired()
+        {
+            return false;
         }
     }
 }

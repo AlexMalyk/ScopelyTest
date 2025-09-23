@@ -1,7 +1,9 @@
 using System;
 using TowerDefence.Core.Effects;
+using TowerDefence.Runtime.Core.Effects;
 using TowerDefence.Runtime.Core.Entities;
 using UnityEngine;
+using VContainer;
 
 namespace TowerDefence.Runtime.Battle.Effects
 {
@@ -20,6 +22,8 @@ namespace TowerDefence.Runtime.Battle.Effects
     [Serializable]
     public class SlowMovementEffect : EntityComponent, IMovementEffect
     {
+        [Inject] private EffectsSystem _effectsSystem;
+        
         [SerializeField] private float _slowMultiplier = 0.5f;
         [SerializeField] private float _duration = 3f;
         
@@ -31,22 +35,31 @@ namespace TowerDefence.Runtime.Battle.Effects
             _duration = duration;
         }
 
+        public override void Initialize(Entity entity)
+        {
+            base.Initialize(entity);
+            
+            _effectsSystem.RegisterEffect(this);
+        }
+
         float IMovementEffect.ModifyMovement(float movementSpeed)
         {
             return movementSpeed * _slowMultiplier;
         }
 
-        protected virtual void Start()
+        void IEffect.UpdateEffect(float deltaTime)
         {
-            _timeRemaining = _duration;
+            _timeRemaining -= deltaTime;
+            
+            if (IsExpired() && _entity != null)
+            {
+                _entity.TryRemoveEffect(this);
+            }
         }
 
-        protected virtual void Update()
+        public bool IsExpired()
         {
-            _timeRemaining -= Time.deltaTime;
-            
-            if (_timeRemaining <= 0) 
-                _entity.TryRemoveEffect(this);
+            return _timeRemaining <= 0;
         }
     }
 }
