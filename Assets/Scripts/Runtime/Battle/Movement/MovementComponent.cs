@@ -51,7 +51,6 @@ namespace TowerDefence.Runtime.Battle.Movement
         {
             base.Reset();
             
-            _movementEffects.Clear();
             _movementSystem.RegisterComponent(this);
             
             _isReachedTarget = false;
