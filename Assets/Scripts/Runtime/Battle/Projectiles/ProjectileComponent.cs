@@ -47,7 +47,7 @@ namespace TowerDefence.Runtime.Battle.Projectiles
         public override void Cleanup()
         {
             base.Cleanup();
-            _projectileSystem.UnregisterProjectile(this);
+            _projectileSystem?.UnregisterProjectile(this);
         }
         
         public override void Reset()
@@ -59,7 +59,7 @@ namespace TowerDefence.Runtime.Battle.Projectiles
             _onHitCallback = null;
             _onDestroyCallback = null;
             
-            _projectileSystem.RegisterProjectile(this);
+            _projectileSystem?.RegisterProjectile(this);
         }
         
         public void Launch(Entity target, float damage, Action<Entity> onHitCallback = null, Action<Entity> onDestroyCallback = null)

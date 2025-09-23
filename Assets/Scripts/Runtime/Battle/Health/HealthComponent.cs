@@ -63,9 +63,7 @@ namespace TowerDefence.Runtime.Battle.Health
                 modifiedDamage = modifier.ModifyDamage(modifiedDamage);
 
             SetHealth(Mathf.Max(0, _currentHealth - modifiedDamage));
-        
-            Debug.Log($"Took {modifiedDamage} damage (original: {damage}). Health: {_currentHealth}/{_maxHealth}");
-
+            
             if (_currentHealth <= 0) 
                 OnDeath?.Invoke(_entity, this);
         }
@@ -78,7 +76,6 @@ namespace TowerDefence.Runtime.Battle.Health
         public void Heal(float amount)
         {
             SetHealth(Mathf.Min(_maxHealth, _currentHealth + amount));
-            Debug.Log($"Healed {amount}. Health: {_currentHealth}/{_maxHealth}");
         }
 
         private void SetHealth(float health)

@@ -44,14 +44,14 @@ namespace TowerDefence.Runtime.Battle.Movement
             base.Cleanup();
             
             _movementEffects.Clear();
-            _movementSystem.UnregisterComponent(this);
+            _movementSystem?.UnregisterComponent(this);
         }
 
         public override void Reset()
         {
             base.Reset();
             
-            _movementSystem.RegisterComponent(this);
+            _movementSystem?.RegisterComponent(this);
             
             _isReachedTarget = false;
             _hasTarget = false;
