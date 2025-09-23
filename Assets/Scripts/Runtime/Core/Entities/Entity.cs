@@ -125,7 +125,7 @@ namespace TowerDefence.Runtime.Core.Entities
             foreach (var effectComponent in _effects.Values)
                 effectComponent.Reset();
             
-            _coreComponents.Clear();
+            _effects.Clear();
         }
         
         public void CleanupEntity()

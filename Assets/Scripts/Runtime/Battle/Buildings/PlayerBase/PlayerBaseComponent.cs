@@ -12,15 +12,15 @@ namespace TowerDefence.Runtime.Battle.Buildings
         [SerializeField] private float _collisionRadius = 0.5f;
         
         private Collider[] _colliders;
-        private HealthComponent  _healthComponent;
         private Vector3 _position;
+        
+        public event Action<Entity> OnEnemyReached;
         
         public override void Initialize(Entity entity)
         {
             base.Initialize(entity);
             
-            _healthComponent = entity.GetCoreEntityComponent<HealthComponent>();
-            _colliders = new Collider[(int)_healthComponent.MaxHealth];
+            _colliders = new Collider[(int)entity.GetCoreEntityComponent<HealthComponent>().MaxHealth];
             _position = _entity.CachedTransform.position;
         }
         
@@ -28,13 +28,11 @@ namespace TowerDefence.Runtime.Battle.Buildings
         {
             var size = Physics.OverlapSphereNonAlloc(_position, _collisionRadius, _colliders, _targetLayer);
 
-            for (var i = 0; i < size; i++) 
-                OnEnemyReachedBase();
-        }
-        
-        private void OnEnemyReachedBase()
-        {
-            _healthComponent.TakeDamage(1);
+            for (var i = 0; i < size; i++)
+            {
+                var entity = _colliders[i].GetComponent<Entity>();
+                OnEnemyReached?.Invoke(entity);
+            }
         }
     }
 }

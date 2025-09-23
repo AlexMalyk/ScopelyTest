@@ -43,7 +43,7 @@ namespace TowerDefence.Runtime.Core.Scopes
             builder.Register<IdentifiableConfigProvider<EnemyConfig>>(Lifetime.Scoped);
             builder.Register<IdentifiableConfigProvider<PlaceableConfig>>(Lifetime.Scoped);
 
-            builder.Register<PlayerBaseHealthSystem>(Lifetime.Scoped);
+            builder.Register<PlayerBaseHealthSystem>(Lifetime.Scoped).AsImplementedInterfaces().AsSelf();
             builder.Register<PlayerBaseProvider>(Lifetime.Scoped).WithParameter(_playerBaseEntity).AsSelf();
             
             builder.Register<SpawnPointsProvider>(Lifetime.Scoped);
