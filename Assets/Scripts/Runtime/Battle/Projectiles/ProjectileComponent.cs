@@ -47,8 +47,6 @@ namespace TowerDefence.Runtime.Battle.Projectiles
                 Debug.LogError($"ProjectileBehaviorComponent requires MovementComponent on {entity.name}");
                 return;
             }
-            
-            _projectileSystem.RegisterProjectile(this);
         }
         
         public override void Cleanup()
@@ -65,6 +63,8 @@ namespace TowerDefence.Runtime.Battle.Projectiles
             _isActive = false;
             _onHitCallback = null;
             _onDestroyCallback = null;
+            
+            _projectileSystem.RegisterProjectile(this);
         }
         
         public void Launch(Entity target, float damage, Action<Entity> onHitCallback = null, Action<Entity> onDestroyCallback = null)

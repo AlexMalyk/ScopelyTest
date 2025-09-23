@@ -212,7 +212,7 @@ PrefabInstance:
     - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
         type: 3}
       propertyPath: managedReferences[4492131105645789232]._damage
-      value: 25
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
         type: 3}
@@ -263,6 +263,11 @@ PrefabInstance:
         type: 3}
       propertyPath: managedReferences[4492131105645789232]._destroyOnReachTarget
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
+        type: 3}
+      propertyPath: managedReferences[4492131105645789232]._effectsToApply.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6717967354390465614, guid: d34816a7f57504fbaab55ea28b8500f4,
         type: 3}

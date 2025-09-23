@@ -17,8 +17,8 @@ namespace TowerDefence.Runtime.Core.Entities
         [SerializeReference, SubclassSelector] private List<EntityComponent> _initialComponents = new();
         [SerializeReference, SubclassSelector] private List<IEffectDefinition> _initialEffects = new();
         
-        private Dictionary<Type, EntityComponent> _coreComponents = new();
-        private Dictionary<Type, EntityComponent> _effects = new();
+        [SerializeReference, SubclassSelector] private List<EntityComponent> _coreComponents = new();
+        [SerializeReference, SubclassSelector] private List<EntityComponent> _effects = new();
         
         public Transform CachedTransform => _transform;
         public Transform View => _view;
@@ -47,7 +47,9 @@ namespace TowerDefence.Runtime.Core.Entities
             
             if (isCoreComponent)
             {
-                if (!_coreComponents.TryAdd(componentType, component))
+                if(!_coreComponents.Contains(component))
+                    _coreComponents.Add(component);
+                else
                 {
                     Debug.LogWarning($"Core component {componentType.Name} already exists!");
                     return;
@@ -55,7 +57,9 @@ namespace TowerDefence.Runtime.Core.Entities
             }
             else
             {
-                if (!_effects.TryAdd(componentType, component))
+                if(!_effects.Contains(component))
+                    _effects.Add(component);
+                else
                 {
                     Debug.LogWarning($"Effect component {componentType.Name} already exists!");
                     return;
@@ -64,22 +68,16 @@ namespace TowerDefence.Runtime.Core.Entities
             
             _objectResolver.Inject(component);
             component.Initialize(this);
-                
+            
             OnEntityComponentAdded?.Invoke(component);
         }
 
         public T GetCoreEntityComponent<T>() where T : EntityComponent
         {
-            // Fast path: exact type
-            if (_coreComponents.TryGetValue(typeof(T), out var exact))
-                return (T)exact;
-
-            // Fallback: find the first component whose concrete type is assignable to T
-            var targetType = typeof(T);
-            foreach (var kvp in _coreComponents)
+            foreach (var component in _coreComponents)
             {
-                if (targetType.IsAssignableFrom(kvp.Key))
-                    return (T)kvp.Value;
+                if (component is T entityComponent)
+                    return entityComponent;
             }
 
             return null;
@@ -87,16 +85,10 @@ namespace TowerDefence.Runtime.Core.Entities
         
         public T GetEffect<T>() where T : EntityComponent
         {
-            // Fast path: exact type
-            if (_effects.TryGetValue(typeof(T), out var exact))
-                return (T)exact;
-
-            // Fallback: find the first component whose concrete type is assignable to T
-            var targetType = typeof(T);
-            foreach (var kvp in _effects)
+            foreach (var effect in _effects)
             {
-                if (targetType.IsAssignableFrom(kvp.Key))
-                    return (T)kvp.Value;
+                if (effect is T entityComponent)
+                    return entityComponent;
             }
 
             return null;
@@ -105,33 +97,33 @@ namespace TowerDefence.Runtime.Core.Entities
         public bool TryRemoveEffect(EntityComponent component)
         {
             if (component == null) return false;
-            var type = component.GetType();
             
-            if (!_effects.ContainsKey(type)) return false;
+            if (!_effects.Contains(component)) return false;
 
             OnEntityComponentRemoving?.Invoke(component);
 
             component.Cleanup();
             
-            _effects.Remove(type);
+            _effects.Remove(component);
+            
             return true;
         }
         
         public void ResetEntity()
         {
-            foreach (var coreComponent in _coreComponents.Values) 
+            foreach (var coreComponent in _coreComponents) 
                 coreComponent.Reset();
             
-            foreach (var effectComponent in _effects.Values)
+            foreach (var effectComponent in _effects)
                 effectComponent.Reset();
         }
         
         public void CleanupEntity()
         {
-            foreach (var coreComponent in _coreComponents.Values) 
+            foreach (var coreComponent in _coreComponents) 
                 coreComponent.Cleanup();
 
-            foreach (var effectComponent in _effects.Values)
+            foreach (var effectComponent in _effects)
                 effectComponent.Cleanup();
             
             _effects.Clear();

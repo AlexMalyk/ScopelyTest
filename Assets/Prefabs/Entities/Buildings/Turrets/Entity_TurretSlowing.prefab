@@ -1,49 +1,39 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &2835192833359647858
+--- !u!1001 &7069718871605555502
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 3669475253474875091}
     m_Modifications:
-    - target: {fileID: 137698683031451501, guid: a3a1f3b860bc044eea8d95aa83ac6848,
+    - target: {fileID: 137698683031451501, guid: feecb663f23754f8ba19b933abd9ac1e,
         type: 3}
       propertyPath: m_Name
-      value: Turret_Regular
+      value: Turret_Freezing
       objectReference: {fileID: 0}
-    - target: {fileID: 137698683031451501, guid: a3a1f3b860bc044eea8d95aa83ac6848,
-        type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 156142473215757567, guid: a3a1f3b860bc044eea8d95aa83ac6848,
-        type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 8077223710526320137, guid: a3a1f3b860bc044eea8d95aa83ac6848,
+    - target: {fileID: 8077223710526320137, guid: feecb663f23754f8ba19b933abd9ac1e,
         type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8077223710526320137, guid: a3a1f3b860bc044eea8d95aa83ac6848,
+    - target: {fileID: 8077223710526320137, guid: feecb663f23754f8ba19b933abd9ac1e,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8077223710526320137, guid: a3a1f3b860bc044eea8d95aa83ac6848,
+    - target: {fileID: 8077223710526320137, guid: feecb663f23754f8ba19b933abd9ac1e,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8077223710526320137, guid: a3a1f3b860bc044eea8d95aa83ac6848,
+    - target: {fileID: 8077223710526320137, guid: feecb663f23754f8ba19b933abd9ac1e,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a3a1f3b860bc044eea8d95aa83ac6848, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: feecb663f23754f8ba19b933abd9ac1e, type: 3}
 --- !u!1001 &8059081556388059805
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -135,7 +125,7 @@ PrefabInstance:
     - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
         type: 3}
       propertyPath: managedReferences[4492131105645789230]._damage
-      value: 25
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
         type: 3}
