@@ -44,27 +44,20 @@ namespace TowerDefence.Runtime.Core.Entities
 
         public void AddEntityComponent(EntityComponent component, bool isCoreComponent = false)
         {
-            var componentType = component.GetType();
             
             if (isCoreComponent)
             {
                 if(!_coreComponents.Contains(component))
                     _coreComponents.Add(component);
                 else
-                {
-                    Debug.LogWarning($"Core component {componentType.Name} already exists!");
                     return;
-                }
             }
             else
             {
                 if(!_effects.Contains(component))
                     _effects.Add(component);
                 else
-                {
-                    Debug.LogWarning($"Effect component {componentType.Name} already exists!");
                     return;
-                }
             }
             
             _objectResolver.Inject(component);

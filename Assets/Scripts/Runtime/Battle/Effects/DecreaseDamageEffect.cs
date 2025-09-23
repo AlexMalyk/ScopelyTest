@@ -32,8 +32,14 @@ namespace TowerDefence.Runtime.Battle.Effects
             return Mathf.Max(0f, incomingDamage - _decreaseAmount);
         }
 
+        bool IEffect.TryRemoveEffect()
+        {
+            return _entity.TryRemoveEffect(this);
+        }
+
         void IEffect.UpdateEffect(float deltaTime) { }
-        public bool IsExpired()
+
+        bool IEffect.IsExpired()
         {
             return false;
         }

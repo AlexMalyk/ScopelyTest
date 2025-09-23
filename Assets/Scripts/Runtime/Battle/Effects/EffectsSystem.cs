@@ -24,7 +24,6 @@ namespace TowerDefence.Runtime.Battle.Effects
         void ITickable.Tick()
         {
             var deltaTime = Time.deltaTime;
-            _effectsToRemove.Clear();
 
             foreach (var effect in _effects)
             {
@@ -40,8 +39,13 @@ namespace TowerDefence.Runtime.Battle.Effects
 
         void ILateTickable.LateTick()
         {
-            foreach (var entity in _effectsToRemove) 
-                _effects.Remove(entity);
+            foreach (var effect in _effectsToRemove)
+            {
+                effect.TryRemoveEffect();
+                _effects.Remove(effect);
+            }
+            
+            _effectsToRemove.Clear();
         }
     }
 }

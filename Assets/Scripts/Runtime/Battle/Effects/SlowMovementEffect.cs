@@ -33,6 +33,8 @@ namespace TowerDefence.Runtime.Battle.Effects
         {
             _slowMultiplier = slowMultiplier;
             _duration = duration;
+            
+            _timeRemaining = duration;
         }
 
         public override void Initialize(Entity entity)
@@ -47,13 +49,21 @@ namespace TowerDefence.Runtime.Battle.Effects
             return movementSpeed * _slowMultiplier;
         }
 
+        public bool TryRemoveEffect()
+        {
+            if(_entity != null)
+                return _entity.TryRemoveEffect(this);
+
+            return false;
+        }
+
         void IEffect.UpdateEffect(float deltaTime)
         {
             _timeRemaining -= deltaTime;
             
-            if (IsExpired() && _entity != null)
+            if (IsExpired())
             {
-                _entity.TryRemoveEffect(this);
+                TryRemoveEffect();
             }
         }
 
