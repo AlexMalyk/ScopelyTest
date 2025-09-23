@@ -42,11 +42,6 @@ namespace TowerDefence.Runtime.Battle.Projectiles
             _colliders = new Collider[maxColliders];
             
             _movementComponent = entity.GetCoreEntityComponent<MovementComponent>();
-            if (_movementComponent == null)
-            {
-                Debug.LogError($"ProjectileBehaviorComponent requires MovementComponent on {entity.name}");
-                return;
-            }
         }
         
         public override void Cleanup()

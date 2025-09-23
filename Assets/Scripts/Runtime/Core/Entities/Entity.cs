@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using TowerDefence.Core.Effects;
 using UnityEngine;
 using VContainer;
@@ -14,9 +13,11 @@ namespace TowerDefence.Runtime.Core.Entities
         [SerializeField] private Transform _view;
         [SerializeField] private Transform _transform;
         
+        [Header("Editor Setup")]
         [SerializeReference, SubclassSelector] private List<EntityComponent> _initialComponents = new();
         [SerializeReference, SubclassSelector] private List<IEffectDefinition> _initialEffects = new();
         
+        [Header("Runtime")]
         [SerializeReference, SubclassSelector] private List<EntityComponent> _coreComponents = new();
         [SerializeReference, SubclassSelector] private List<EntityComponent> _effects = new();
         

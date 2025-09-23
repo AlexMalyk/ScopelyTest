@@ -18,7 +18,6 @@ namespace TowerDefence.Runtime.Battle.Movement
 
             var actualMoveDistance = Mathf.Min(moveDistance, remainingDistance);
             _nextPosition = currentPosition + directionToTarget * actualMoveDistance;
-            //Debug.Log($"[Direct] {_entity.gameObject.name} is moving to {_nextPosition}");
         }
     }
 }

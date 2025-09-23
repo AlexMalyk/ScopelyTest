@@ -25,12 +25,8 @@ namespace TowerDefence.Runtime.Battle.Attack
         private TargetingComponent _targetingComponent;
         private float _lastAttackTime;
         private bool _isAttacking;
-
-        public float Damage => _damage;
-        public float AttackCooldown => _attackCooldown;
+        
         public bool CanAttack => Time.time - _lastAttackTime >= _attackCooldown;
-        public bool IsAttacking => _isAttacking;
-
         public event Action<ITargetable> OnAttackStarted;
         public event Action<ITargetable> OnAttackCompleted;
         public event Action<Entity> OnDamageDealt;

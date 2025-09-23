@@ -23,12 +23,10 @@ namespace TowerDefence.Runtime.Battle.UI
         [SerializeField] private TextMeshProUGUI _statusText;
         [SerializeField] private float _statusDisplayTime = 3f;
         
-        // Dependencies
         [Inject] private PlacementSystem _placementSystem;
         [Inject] private GoldSystem _goldSystem;
         [Inject] private PlaceableConfig[] _placeableConfigs;
         
-        // State
         private List<PlaceableItemUI> _uiItems = new();
         private PlaceableItemUI _selectedItem;
         private Coroutine _statusCoroutine;
@@ -61,10 +59,8 @@ namespace TowerDefence.Runtime.Battle.UI
                 return;
             }
             
-            // Clear existing items
             ClearUIItems();
             
-            // Create UI item for each placeable config
             foreach (var config in _placeableConfigs)
             {
                 if (config == null) continue;
@@ -85,7 +81,6 @@ namespace TowerDefence.Runtime.Battle.UI
                 }
             }
             
-            // Update affordability for all items
             UpdateAllItemsAffordability();
         }
         
@@ -110,7 +105,6 @@ namespace TowerDefence.Runtime.Battle.UI
             _placementSystem.OnPlacementCancelled += OnPlacementCancelled;
             _placementSystem.OnEntityPlaced += OnEntityPlaced;
             _placementSystem.OnPlacementFailed += OnPlacementFailed;
-            
             
             _cancelButton.onClick.AddListener(OnCancelButtonClicked);
         }
@@ -224,11 +218,8 @@ namespace TowerDefence.Runtime.Battle.UI
             _statusText.text = message;
             _statusText.gameObject.SetActive(true);
             
-            // Clear previous coroutine
-            if (_statusCoroutine != null)
-            {
+            if (_statusCoroutine != null) 
                 StopCoroutine(_statusCoroutine);
-            }
             
             // Start new timer to hide status
             _statusCoroutine = StartCoroutine(HideStatusAfterDelay());
@@ -238,10 +229,8 @@ namespace TowerDefence.Runtime.Battle.UI
         {
             yield return new WaitForSeconds(_statusDisplayTime);
             
-            if (_statusText != null)
-            {
+            if (_statusText != null) 
                 _statusText.gameObject.SetActive(false);
-            }
             
             _statusCoroutine = null;
         }

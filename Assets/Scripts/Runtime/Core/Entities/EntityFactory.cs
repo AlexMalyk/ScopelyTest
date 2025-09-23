@@ -8,7 +8,7 @@ namespace TowerDefence.Runtime.Core.Entities
     {
         private readonly IObjectResolver _resolver;
 
-        private int _index = 0;
+        private int _index;
         
         [Inject]
         public EntityFactory(IObjectResolver resolver)

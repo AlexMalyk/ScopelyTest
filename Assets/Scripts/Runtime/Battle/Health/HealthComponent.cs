@@ -91,7 +91,7 @@ namespace TowerDefence.Runtime.Battle.Health
         {
             base.Reset();
             
-            _healthModifiers = new List<IHealthEffect>();
+            _healthModifiers.Clear();
             SetHealth(_maxHealth);
         }
     }
