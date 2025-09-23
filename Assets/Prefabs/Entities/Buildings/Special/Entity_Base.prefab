@@ -341,7 +341,7 @@ PrefabInstance:
     - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
         type: 3}
       propertyPath: managedReferences[4492131105645789240]._maxHealth
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
         type: 3}
@@ -357,6 +357,11 @@ PrefabInstance:
         type: 3}
       propertyPath: managedReferences[4492131105645789203]._targetLayer.m_Bits
       value: 4096
+      objectReference: {fileID: 0}
+    - target: {fileID: 6555911736941936455, guid: d34816a7f57504fbaab55ea28b8500f4,
+        type: 3}
+      propertyPath: managedReferences[4492131105645789240]._healthModifiers.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6717967354390465614, guid: d34816a7f57504fbaab55ea28b8500f4,
         type: 3}
