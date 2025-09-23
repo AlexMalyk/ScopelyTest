@@ -50,7 +50,7 @@ namespace TowerDefence.Runtime.Battle.Enemies
             _activeEnemies = Mathf.Max(0, _activeEnemies - 1);
 
             healthComponent.OnDeath -= HandleEnemyDeath;
-            healthComponent.OnEliminated -= HandleEnemyDeath;
+            healthComponent.OnEliminated -= HandleEnemyElimination;
             
             _spawner.Despawn(enemy);
             
