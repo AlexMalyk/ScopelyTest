@@ -87,11 +87,17 @@ namespace TowerDefence.Runtime.Battle.Health
             _healthBar?.SetHealth(_currentHealth, _maxHealth);
         }
 
+        public override void Cleanup()
+        {
+            base.Cleanup();
+            
+            _healthModifiers.Clear();
+        }
+
         public override void Reset()
         {
             base.Reset();
             
-            _healthModifiers.Clear();
             SetHealth(_maxHealth);
         }
     }
